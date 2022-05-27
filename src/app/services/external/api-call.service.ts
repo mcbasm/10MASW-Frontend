@@ -1,3 +1,4 @@
+import { Pagination } from './../../types/types';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -18,6 +19,9 @@ export class ApiCallService {
   }
   post<T>(url: string, body: T | T[]) {
     return this.http.post<T>(this.apiURL + url, body);
+  }
+  postPagination<T>(url: string, pagination: Pagination) {
+    return this.http.post<T>(this.apiURL + url, pagination);
   }
   put<T>(url: string, body: T | T[]) {
     return this.http.put<T>(this.apiURL + url, body);

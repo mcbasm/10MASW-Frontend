@@ -1,13 +1,24 @@
+import { Type } from '@angular/core';
+import { Pagination } from './../../types/types';
 import { ApiCallService } from './../external/api-call.service';
 
 export class BaseApiUseService {
-  constructor(private apiService: ApiCallService, private _baseURL: string) {}
+  constructor(
+    private apiService: ApiCallService,
+    private _baseURL: string
+  ) {}
 
   //#region METHODS
   getAll<T>(call: (res: T[]) => any): void {
     this.apiService
       .get<T[]>(this._baseURL)
       .subscribe((data: T[]) => call(data));
+  }
+
+  getPaginated<T>(pagination: Pagination, call: (res: T) => any): void {
+    this.apiService
+      .postPagination<T>(this._baseURL + '/paginated', pagination)
+      .subscribe((data: T) => call(data));
   }
 
   getById<T>(_id: string, call: (res: T) => any): void {

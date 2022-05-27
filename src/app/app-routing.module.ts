@@ -1,5 +1,5 @@
 //#region IMPORTS
-import { RegistryUserComponent } from './pages/user/registry-user/registry-user.component';
+import { RegisterUserComponent } from './pages/user/register-user/register-user.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UserComponent } from './pages/user/user.component';
@@ -15,7 +15,7 @@ const routes: Routes = [
     path: 'users',
     children: [
       { path: '', component: UserComponent },
-      { path: 'registry', component: RegistryUserComponent },
+      { path: 'register', component: RegisterUserComponent },
     ],
   },
   { path: '**', component: PageNotFoundComponent },

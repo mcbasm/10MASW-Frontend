@@ -1,3 +1,9 @@
+export type Pagination = {
+  rows: number;
+  total: number;
+  pages: number;
+};
+
 export type Role = {
   _id: string;
   name: string;

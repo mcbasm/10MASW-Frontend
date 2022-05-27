@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserComponent } from './pages/user/user.component';
-import { RegistryUserComponent } from './pages/user/registry-user/registry-user.component';
+import { RegisterUserComponent } from './pages/user/register-user/register-user.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -16,7 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     UserComponent,
-    RegistryUserComponent,
+    RegisterUserComponent,
     NavbarComponent,
     HomeComponent,
     PageNotFoundComponent,

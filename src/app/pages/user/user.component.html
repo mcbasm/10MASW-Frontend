@@ -1,1 +1,50 @@
-<p>user works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-6 col-md-8 col-lg-10">
+              <h1>Usuarios</h1>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-2 text-end">
+              <button type="button" class="btn btn-primary" routerLink="register"><i class="fas fa-plus"></i>
+                Nuevo</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12" *ngIf="items.length>0">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 6rem;">N°</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Rol</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.lastName}}</td>
+                    <td>{{item.email}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>{{item.role?.name}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-12" *ngIf="items.length===0">
+              <h2>No hay registros disponibles.</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

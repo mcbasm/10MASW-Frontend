@@ -1,4 +1,4 @@
-import { User } from './../../types/types';
+import { User, Pagination } from './../../types/types';
 import { UserService } from './../../services/external/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,6 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class UserComponent implements OnInit {
   //#region VARIABLES
   items: User[] = [];
+  pagination: Pagination = {
+    rows: 10,
+    total: 0,
+    pages: 0,
+  };
   //#endregion VARIABLES
 
   constructor(private userService: UserService) {}
@@ -23,8 +28,6 @@ export class UserComponent implements OnInit {
   //#region METHODS
   list() {
     this.userService.getAll((res: User[]) => {
-      console.log(res);
-
       this.items = res;
     });
   }
