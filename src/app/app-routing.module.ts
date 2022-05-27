@@ -1,5 +1,5 @@
 //#region IMPORTS
-import { RegistryUserComponent } from './pages/registry-user/registry-user.component';
+import { RegistryUserComponent } from './pages/user/registry-user/registry-user.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UserComponent } from './pages/user/user.component';
