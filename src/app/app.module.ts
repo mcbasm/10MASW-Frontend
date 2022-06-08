@@ -11,6 +11,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ErrorAlertComponent } from './components/error-alert/error-alert.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     HomeComponent,
     PageNotFoundComponent,
+    ErrorAlertComponent,
   ],
   imports: [
     BrowserModule,

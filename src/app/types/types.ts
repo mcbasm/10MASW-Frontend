@@ -1,3 +1,4 @@
+//#region Object Types
 export type Pagination = {
   rows: number;
   total: number;
@@ -18,3 +19,14 @@ export type User = {
   phone: string;
   role: Role;
 };
+//#endregion Object Types
+
+//#region Value Types
+export type ErrorMessage =
+  | 'required'
+  | 'minlength'
+  | 'maxlength'
+  | 'format'
+  | 'equal'
+  | 'custom';
+//#endregion Value Types

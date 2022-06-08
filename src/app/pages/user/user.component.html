@@ -8,6 +8,8 @@
               <h1>Usuarios</h1>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-2 text-end">
+              <button type="button" class="btn btn-warning" (click)="list()"><i class="fas fa-redo"></i>
+                Recargar</button>
               <button type="button" class="btn btn-primary" routerLink="register"><i class="fas fa-plus"></i>
                 Nuevo</button>
             </div>
@@ -25,6 +27,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Teléfono</th>
                     <th scope="col">Rol</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
