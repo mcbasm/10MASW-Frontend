@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User, Pagination } from './../../types/types';
 import { UserService } from './../../services/external/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,7 +18,7 @@ export class UserComponent implements OnInit {
   };
   //#endregion VARIABLES
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   //#region LIFECYCLE
   ngOnInit(): void {
@@ -27,9 +28,20 @@ export class UserComponent implements OnInit {
 
   //#region METHODS
   list() {
-    this.userService.getAll((res: User[]) => {
+    this.userService.getAll<User>((res: User[]) => {
       this.items = res;
     });
+  }
+
+  edit(_id: string) {
+    this.router.navigate(['users/edit', _id]);
+  }
+
+  delete(_id: string) {
+    if (confirm('¿Esta seguro?'))
+      this.userService.delete<User>(_id, (res: User) => {
+        this.list();
+      });
   }
   //#endregion METHODS
 }

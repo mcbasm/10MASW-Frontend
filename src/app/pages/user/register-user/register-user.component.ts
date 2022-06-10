@@ -18,7 +18,7 @@ export class RegisterUserComponent
 {
   //#region VARIABLES
   form!: FormGroup;
-  private _id!: string;
+  private _id: string | undefined;
   edition: boolean = false;
   roles: Role[] = [];
   //#endregion VARIABLES
@@ -43,24 +43,27 @@ export class RegisterUserComponent
       name: ['', Validators.required],
       lastName: ['', Validators.required],
       phone: [''],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      password: [''],
+      confirmPassword: [''],
       email: ['', Validators.required],
       role: ['', Validators.required],
     });
 
+    /* Obtener el id en caso haya edicion */
+    if (this.router.url.indexOf('/edit') > -1) {
+      this._id = this.activatedRoute.snapshot.paramMap.get('id')!;
+      this.edition = true;
+      this.getUser();
+    } else {
+      /* Asignar los validadores para contraseñas */
+      this.getControl(this.form, 'password').setValidators(Validators.required);
+      this.getControl(this.form, 'confirmPassword').setValidators(
+        Validators.required
+      );
+    }
     this.getControl(this.form, 'confirmPassword').addValidators(
       equalValidator(this.getControl(this.form, 'password'))
     );
-
-    /* Obtener el id en caso haya edicion */
-    this.activatedRoute.data.subscribe((data: any) => {
-      if (data.id) {
-        this._id = data.id;
-        this.edition = true;
-        this.getUser();
-      }
-    });
   }
   //#endregion LIFECYCLE
 
@@ -72,15 +75,15 @@ export class RegisterUserComponent
   private save() {
     this.userService.create<User>(this.createObject(), (res: User) => {
       if (res._id) {
-        this.router.navigate(['../']);
+        this.router.navigate(['users']);
       }
     });
   }
 
   private edit() {
-    this.userService.edit<User>(this.createObject(), this._id, (res: User) => {
+    this.userService.edit<User>(this.createObject(), this._id!, (res: User) => {
       if (res._id) {
-        this.router.navigate(['../']);
+        this.router.navigate(['users']);
       }
     });
   }
@@ -92,13 +95,15 @@ export class RegisterUserComponent
   }
 
   private getUser() {
-    this.userService.getById<User>(this._id, (res: User) => {
+    this.userService.getById<User>(this._id!, (res: User) => {
       this.form.setValue({
         name: res.name,
         lastName: res.lastName,
         phone: res.phone,
         email: res.email,
-        role: res.role,
+        role: res.role._id,
+        password: '',
+        confirmPassword: '',
       });
     });
   }

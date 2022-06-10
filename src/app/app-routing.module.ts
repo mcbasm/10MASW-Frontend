@@ -16,6 +16,7 @@ const routes: Routes = [
     children: [
       { path: '', component: UserComponent },
       { path: 'register', component: RegisterUserComponent },
+      { path: 'edit/:id', component: RegisterUserComponent },
     ],
   },
   { path: '**', component: PageNotFoundComponent },
