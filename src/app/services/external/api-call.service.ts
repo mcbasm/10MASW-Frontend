@@ -1,7 +1,8 @@
-import { Pagination } from './../../types/types';
+import { PaginationResult } from './../../types/types';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PaginationQuery } from 'src/app/types/types';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +21,8 @@ export class ApiCallService {
   post<T>(url: string, body: T | T[]) {
     return this.http.post<T>(this.apiURL + url, body);
   }
-  postPagination<T>(url: string, pagination: Pagination) {
-    return this.http.post<T>(this.apiURL + url, pagination);
+  postPagination<T>(url: string, pagination: PaginationQuery) {
+    return this.http.post<PaginationResult<T>>(this.apiURL + url, pagination);
   }
   put<T>(url: string, body: T | T[]) {
     return this.http.put<T>(this.apiURL + url, body);

@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   backendAPI: 'http://localhost:3000/',
+  tokenFE: '654asd87as1cd',
 };
 
 /*

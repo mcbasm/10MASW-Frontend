@@ -12,6 +12,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorAlertComponent } from './components/error-alert/error-alert.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ErrorAlertComponent } from './components/error-alert/error-alert.compon
     HomeComponent,
     PageNotFoundComponent,
     ErrorAlertComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

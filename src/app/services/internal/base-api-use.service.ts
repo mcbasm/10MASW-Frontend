@@ -1,5 +1,5 @@
-import { Type } from '@angular/core';
-import { Pagination } from './../../types/types';
+import { PaginationResult } from './../../types/types';
+import { PaginationQuery } from 'src/app/types/types';
 import { ApiCallService } from './../external/api-call.service';
 
 export class BaseApiUseService {
@@ -16,11 +16,14 @@ export class BaseApiUseService {
     });
   }
 
-  getPaginated<T>(pagination: Pagination, call: (res: T) => any): void {
+  getPaginated<T>(
+    pagination: PaginationQuery,
+    call: (res: PaginationResult<T>) => any
+  ): void {
     this.apiService
       .postPagination<T>(this._baseURL + '/paginated', pagination)
       .subscribe({
-        next: (data: T) => call(data),
+        next: (data: PaginationResult<T>) => call(data),
         error: (error) => {
           alert('Error durante el proceso.');
         },
