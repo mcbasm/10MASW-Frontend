@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorAlertComponent } from './components/error-alert/error-alert.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     PageNotFoundComponent,
     ErrorAlertComponent,
     PaginationComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

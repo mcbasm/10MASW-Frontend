@@ -1,3 +1,4 @@
+import { LoginComponent } from './pages/login/login.component';
 //#region IMPORTS
 import { RegisterUserComponent } from './pages/user/register-user/register-user.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
@@ -11,6 +12,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
   {
     path: 'users',
     children: [

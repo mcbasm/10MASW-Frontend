@@ -16,12 +16,12 @@ export class RegisterUserComponent
   extends ReactiveFormsFunctions
   implements OnInit
 {
-  //#region VARIABLES
+  //#region DATA
   form!: FormGroup;
   private _id: string | undefined;
   edition: boolean = false;
   roles: Role[] = [];
-  //#endregion VARIABLES
+  //#endregion DATA
 
   constructor(
     private userService: UserService,

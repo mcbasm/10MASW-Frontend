@@ -34,5 +34,6 @@ export type ErrorMessage =
   | 'maxlength'
   | 'format'
   | 'equal'
-  | 'custom';
+  | 'custom'
+  | 'email';
 //#endregion Value Types

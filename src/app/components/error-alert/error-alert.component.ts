@@ -29,6 +29,10 @@ export class ErrorAlertComponent implements OnInit, OnChanges {
   ngOnInit(): void {}
   ngOnChanges(changes: SimpleChanges): void {
     switch (this.type) {
+      case 'email':
+        this.message =
+          "El campo '" + this.field + "' debe ser un email válido.";
+        break;
       case 'equal':
         this.message =
           "Los campos '" +

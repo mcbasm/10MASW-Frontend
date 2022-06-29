@@ -18,7 +18,7 @@ export class UserService extends BaseApiUseService {
     (obj as unknown as User).password = encrypt(
       (obj as unknown as User).password
     );
-    super.create(obj, call);
+    super.create<T>(obj, call);
   }
 
   override edit<T>(obj: T, _id: string, call: (res: T) => any): void {
@@ -27,6 +27,6 @@ export class UserService extends BaseApiUseService {
         (obj as unknown as User).password
       );
     }
-    super.edit(obj, _id, call);
+    super.edit<T>(obj, _id, call);
   }
 }
