@@ -1,5 +1,4 @@
-import { PaginationResult } from './../../types/types';
-import { PaginationQuery } from 'src/app/types/types';
+import { Pagination, PaginationResult } from './../../types/types';
 import { ApiCallService } from './../external/api-call.service';
 
 export class BaseApiUseService {
@@ -17,7 +16,7 @@ export class BaseApiUseService {
   }
 
   getPaginated<T>(
-    pagination: PaginationQuery,
+    pagination: Pagination,
     call: (res: PaginationResult<T>) => any
   ): void {
     this.apiService

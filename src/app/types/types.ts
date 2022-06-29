@@ -1,14 +1,9 @@
 //#region Object Types
-export type PaginationQuery = {
-  page: number;
-  limit: number;
-};
-
 export type Pagination = {
   limit: number;
+  page: number;
   totalItems: number;
   totalPages: number;
-  currentPage: number;
 };
 
 export type PaginationResult<T> = {

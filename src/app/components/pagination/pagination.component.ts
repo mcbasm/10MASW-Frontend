@@ -1,9 +1,11 @@
 import { Pagination } from './../../types/types';
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 
@@ -16,11 +18,15 @@ export class PaginationComponent implements OnInit, OnChanges {
   //#region INPUTS
   @Input() pagination: Pagination = {
     limit: 10,
-    currentPage: 1,
+    page: 1,
     totalItems: 0,
     totalPages: 1,
   };
   //#endregion INPUTS
+
+  //#region OUTPUTS
+  @Output() pageSelected: EventEmitter<number> = new EventEmitter<number>();
+  //#endregion OUTPUTS
 
   //#region DATA
   numbers: number[] = [];
@@ -39,6 +45,18 @@ export class PaginationComponent implements OnInit, OnChanges {
   //#endregion LIFECYCLE
 
   //#region METHODS
+  selectPage(index: number) {
+    this.pageSelected.emit(index);
+  }
+
+  prevPage() {
+    this.pageSelected.emit(this.pagination.page - 1);
+  }
+
+  nextPage() {
+    this.pageSelected.emit(this.pagination.page + 1);
+  }
+
   private fillNumbersArray() {
     this.numbers = Array.from(Array(this.pagination.totalPages).keys());
   }

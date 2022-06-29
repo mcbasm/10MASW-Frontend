@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { User, PaginationQuery, PaginationResult } from './../../types/types';
+import { User, Pagination, PaginationResult } from './../../types/types';
 import { UserService } from './../../services/external/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,9 +11,11 @@ import { Component, OnInit } from '@angular/core';
 export class UserComponent implements OnInit {
   //#region VARIABLES
   items: User[] = [];
-  pagination: PaginationQuery = {
+  pagination: Pagination = {
     limit: 10,
     page: 1,
+    totalItems: 0,
+    totalPages: 1,
   };
   //#endregion VARIABLES
 
@@ -27,16 +29,18 @@ export class UserComponent implements OnInit {
 
   //#region METHODS
   list() {
-    this.userService.getAll<User>((res: User[]) => {
-      this.items = res;
-    });
-
     this.userService.getPaginated<User>(
       this.pagination,
       (res: PaginationResult<User>) => {
-        console.log(res);
+        this.items = res.items;
+        this.pagination = res.pagination;
       }
     );
+  }
+
+  changePage(page: number) {
+    this.pagination.page = page;
+    this.list();
   }
 
   edit(_id: string) {

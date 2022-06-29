@@ -8,20 +8,32 @@
               <h1>Usuarios</h1>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-2 text-end">
-              <button type="button" class="btn btn-warning" (click)="list()"><i class="fas fa-redo"></i>
-                Recargar</button>
-              <button type="button" class="btn btn-primary" routerLink="register"><i class="fas fa-plus"></i>
-                Nuevo</button>
+              <button type="button" class="btn btn-warning" (click)="list()">
+                <i class="fas fa-redo"></i> Recargar
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                routerLink="register"
+              >
+                <i class="fas fa-plus"></i> Nuevo
+              </button>
             </div>
           </div>
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-12" *ngIf="items.length>0">
+            <div class="col-12 text-end" *ngIf="items.length > 0">
+              <app-pagination
+                [pagination]="pagination"
+                (pageSelected)="changePage($event)"
+              ></app-pagination>
+            </div>
+            <div class="col-12" *ngIf="items.length > 0">
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col" style="width: 6rem;">N°</th>
+                    <th scope="col" style="width: 6rem">N°</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellidos</th>
                     <th scope="col">Email</th>
@@ -31,26 +43,34 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of items; let i=index">
-                    <td>{{i+1}}</td>
-                    <td>{{item.name}}</td>
-                    <td>{{item.lastName}}</td>
-                    <td>{{item.email}}</td>
-                    <td>{{item.phone}}</td>
-                    <td>{{item.role?.name}}</td>
+                  <tr *ngFor="let item of items; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.lastName }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.phone }}</td>
+                    <td>{{ item.role?.name }}</td>
                     <td>
                       <div class="btn-group">
-                        <button class="btn btn-secondary" (click)="edit(item._id!)"><i
-                            class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger" (click)="delete(item._id!)"><i
-                            class="fas fa-trash-alt"></i></button>
+                        <button
+                          class="btn btn-secondary"
+                          (click)="edit(item._id!)"
+                        >
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button
+                          class="btn btn-danger"
+                          (click)="delete(item._id!)"
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
                       </div>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div class="col-12" *ngIf="items.length===0">
+            <div class="col-12" *ngIf="items.length === 0">
               <h2>No hay registros disponibles.</h2>
             </div>
           </div>
