@@ -15,11 +15,11 @@ export class ApiCallService {
 
   constructor(
     private http: HttpClient,
-    private authenticationService: AuthenticationService
+    private auth: AuthenticationService
   ) {
     this.authenticationHeaders = {
       headers: {
-        Authorization: `Bearer ${this.authenticationService.getToken()}`,
+        Authorization: `Bearer ${this.auth.getToken()}`,
       },
     };
   }

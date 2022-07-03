@@ -29,6 +29,10 @@ export class UserComponent implements OnInit {
 
   //#region METHODS
   list() {
+    this.userService.getAll((res) => {
+      console.log(res);
+    });
+
     this.userService.getPaginated<User>(
       this.pagination,
       (res: PaginationResult<User>) => {

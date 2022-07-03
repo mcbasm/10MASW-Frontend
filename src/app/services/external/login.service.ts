@@ -17,7 +17,7 @@ export class LoginService {
 
   constructor(
     private http: HttpClient,
-    private authenticationService: AuthenticationService,
+    private auth: AuthenticationService,
     private router: Router
   ) {}
 
@@ -30,7 +30,7 @@ export class LoginService {
       .subscribe({
         next: (data: TokenResponse) => {
           if (data.token) {
-            this.authenticationService.saveToken(data.token);
+            this.auth.saveToken(data.token);
             this.router.navigate(['/home']);
           }
           return data;
