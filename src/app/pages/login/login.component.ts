@@ -1,6 +1,8 @@
+import { TokenPayload } from './../../types/types';
 import { ReactiveFormsFunctions } from './../../functions/ReactiveFormsFunctions';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/external/login.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ export class LoginComponent extends ReactiveFormsFunctions implements OnInit {
   form!: FormGroup;
   //#endregion DATA
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private loginService: LoginService) {
     super();
   }
 
@@ -20,13 +22,21 @@ export class LoginComponent extends ReactiveFormsFunctions implements OnInit {
   ngOnInit(): void {
     /* Construir el formulario */
     this.form = this.fb.group({
-      user: ['', Validators.compose([Validators.required, Validators.email])],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.required],
     });
   }
   //#endregion LIFECYCLE
 
   //#region METHODS
-  login() {}
+  login() {
+    // Construir el objeto
+    const user: TokenPayload = {
+      email: this.getControl(this.form, 'email').value,
+      password: this.getControl(this.form, 'password').value,
+    };
+
+    this.loginService.login(user);
+  }
   //#endregion METHODS
 }

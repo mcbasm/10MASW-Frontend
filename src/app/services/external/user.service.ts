@@ -5,12 +5,15 @@ import { ApiCallService } from './api-call.service';
 
 import { Injectable, Type } from '@angular/core';
 import { encrypt } from 'src/app/functions/Encryption';
+import { AuthenticationService } from '../internal/authentication.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService extends BaseApiUseService {
-  constructor(apiService: ApiCallService) {
+  constructor(
+    apiService: ApiCallService
+  ) {
     super(apiService, 'users');
   }
 

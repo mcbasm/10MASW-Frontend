@@ -6,22 +6,34 @@ import { HomeComponent } from './pages/home/home.component';
 import { UserComponent } from './pages/user/user.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from './services/internal/auth-guard.service';
 //#endregion IMPORTS
 
 //#region ROUTING
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   {
     path: 'users',
     children: [
-      { path: '', component: UserComponent },
-      { path: 'register', component: RegisterUserComponent },
-      { path: 'edit/:id', component: RegisterUserComponent },
+      { path: '', component: UserComponent, canActivate: [AuthGuardService] },
+      {
+        path: 'register',
+        component: RegisterUserComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'edit/:id',
+        component: RegisterUserComponent,
+        canActivate: [AuthGuardService],
+      },
     ],
   },
-  { path: '**', component: PageNotFoundComponent },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
+  },
 ];
 //#endregion ROUTING
 

@@ -1,4 +1,5 @@
-//#region Object Types
+//#region OBJECT TYPES
+//#region Pagination
 export type Pagination = {
   limit: number;
   page: number;
@@ -10,7 +11,28 @@ export type PaginationResult<T> = {
   items: T[];
   pagination: Pagination;
 };
+//#endregion Pagination
 
+//#region Seguridad
+export type TokenResponse = {
+  token: string;
+};
+export interface TokenPayload {
+  email: string;
+  password: string;
+  name?: string;
+}
+export interface UserDetails {
+  _id: string;
+  email: string;
+  name: string;
+  exp: number;
+  iat: number;
+}
+
+//#endregion Seguridad
+
+//#region Schemas
 export type Role = {
   _id: string;
   name: string;
@@ -25,9 +47,10 @@ export type User = {
   phone: string;
   role: Role;
 };
-//#endregion Object Types
+//#endregion Schemas
+//#endregion OBJECT TYPES
 
-//#region Value Types
+//#region VALUE TYPES
 export type ErrorMessage =
   | 'required'
   | 'minlength'
@@ -36,4 +59,4 @@ export type ErrorMessage =
   | 'equal'
   | 'custom'
   | 'email';
-//#endregion Value Types
+//#endregion VALUE TYPES
