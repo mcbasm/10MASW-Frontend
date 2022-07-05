@@ -21,6 +21,7 @@ export class ErrorAlertComponent implements OnInit, OnChanges {
   @Input() display: boolean = false;
   @Input() length!: number;
   @Input() format!: string;
+  @Input() value!: string | number;
   //#endregion INPUTS
 
   constructor() {}
@@ -64,6 +65,14 @@ export class ErrorAlertComponent implements OnInit, OnChanges {
           "' debe tener máximo '" +
           this.length +
           "' carácteres.";
+        break;
+      case 'min':
+        this.message =
+          "El campo '" + this.field + "' debe ser mínimo '" + this.value + "'.";
+        break;
+      case 'max':
+        this.message =
+          "El campo '" + this.field + "' debe ser máximo " + this.value + "'.";
         break;
       case 'required':
         this.message = "El campo '" + this.field + "' es requerido.";

@@ -5,7 +5,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-sm-6 col-md-8 col-lg-10">
-              <h1>Usuarios</h1>
+              <h1>Productos</h1>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-2 text-end">
               <button type="button" class="btn btn-warning" (click)="list()">
@@ -35,21 +35,35 @@
                   <tr>
                     <th scope="col" style="width: 6rem">N°</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Apellidos</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Teléfono</th>
-                    <th scope="col">Rol</th>
+                    <th scope="col">Stock Actual</th>
+                    <th scope="col">Stock Mínimo</th>
+                    <th scope="col">Unidad de Medida</th>
+                    <th scope="col">Fecha Registro</th>
+                    <th scope="col">Última Modificación</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of items; let i = index">
+                  <tr
+                    [ngClass]="{
+                      'table-danger':
+                        item.stock < item.mininumStock && item.status
+                    }"
+                    *ngFor="let item of items; let i = index"
+                  >
                     <td>{{ i + 1 }}</td>
                     <td>{{ item.name }}</td>
-                    <td>{{ item.lastName }}</td>
-                    <td>{{ item.email }}</td>
-                    <td>{{ item.phone }}</td>
-                    <td>{{ item.role?.name }}</td>
+                    <td>{{ item.stock }}</td>
+                    <td>{{ item.mininumStock }}</td>
+                    <td>{{ item.measurementUnit }}</td>
+                    <td>{{ item.createdAt | date: "dd/MM/yyyy HH:mm" }}</td>
+                    <td>{{ item.updatedAt | date: "dd/MM/yyyy HH:mm" }}</td>
+                    <td>
+                      <app-status-badge
+                        [status]="item.status"
+                      ></app-status-badge>
+                    </td>
                     <td>
                       <div class="btn-group">
                         <button

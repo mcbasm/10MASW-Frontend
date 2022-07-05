@@ -1,16 +1,16 @@
 import { Router } from '@angular/router';
-import { User, Pagination, PaginationResult } from './../../types/types';
-import { UserService } from './../../services/external/user.service';
+import { ProductService } from './../../services/external/product.service';
+import { Product, Pagination, PaginationResult } from './../../types/types';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss'],
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.scss'],
 })
-export class UserComponent implements OnInit {
+export class ProductComponent implements OnInit {
   //#region VARIABLES
-  items: User[] = [];
+  items: Product[] = [];
   pagination: Pagination = {
     limit: 10,
     page: 1,
@@ -19,7 +19,7 @@ export class UserComponent implements OnInit {
   };
   //#endregion VARIABLES
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   //#region LIFECYCLE
   ngOnInit(): void {
@@ -29,9 +29,9 @@ export class UserComponent implements OnInit {
 
   //#region METHODS
   list() {
-    this.userService.getPaginated<User>(
+    this.productService.getPaginated<Product>(
       this.pagination,
-      (res: PaginationResult<User>) => {
+      (res: PaginationResult<Product>) => {
         this.items = res.items;
         this.pagination = res.pagination;
       }
@@ -44,12 +44,12 @@ export class UserComponent implements OnInit {
   }
 
   edit(_id: string) {
-    this.router.navigate(['users/edit', _id]);
+    this.router.navigate(['product/edit', _id]);
   }
 
   delete(_id: string) {
     if (confirm('¿Esta seguro?'))
-      this.userService.delete<User>(_id, (res: User) => {
+      this.productService.delete<Product>(_id, (res: Product) => {
         this.list();
       });
   }

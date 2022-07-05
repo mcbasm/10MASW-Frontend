@@ -8,12 +8,21 @@ import { Injectable } from '@angular/core';
 })
 export class AuthenticationService {
   private token!: string;
+  private role!: string;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   saveToken(token: string): void {
     localStorage.setItem('mean-token', token);
     this.token = token;
+  }
+
+  saveRole(role: string): void {
+    this.role = role;
+  }
+
+  getRole(): string {
+    return this.role || '';
   }
 
   getToken(): string {
@@ -25,8 +34,9 @@ export class AuthenticationService {
 
   logout(): void {
     this.token = '';
+    this.role = '';
     window.localStorage.removeItem('mean-token');
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/login');
   }
 
   getUserDetails(): UserDetails | null {
@@ -49,4 +59,6 @@ export class AuthenticationService {
       return false;
     }
   }
+
+
 }

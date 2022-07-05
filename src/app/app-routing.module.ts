@@ -1,3 +1,5 @@
+import { RegisterProductComponent } from './pages/product/register-product/register-product.component';
+import { ProductComponent } from './pages/product/product.component';
 import { LoginComponent } from './pages/login/login.component';
 //#region IMPORTS
 import { RegisterUserComponent } from './pages/user/register-user/register-user.component';
@@ -26,6 +28,26 @@ const routes: Routes = [
       {
         path: 'edit/:id',
         component: RegisterUserComponent,
+        canActivate: [AuthGuardService],
+      },
+    ],
+  },
+  {
+    path: 'product',
+    children: [
+      {
+        path: '',
+        component: ProductComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'register',
+        component: RegisterProductComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'edit/:id',
+        component: RegisterProductComponent,
         canActivate: [AuthGuardService],
       },
     ],

@@ -14,6 +14,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorAlertComponent } from './components/error-alert/error-alert.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ProductComponent } from './pages/product/product.component';
+import { RegisterProductComponent } from './pages/product/register-product/register-product.component';
+import { StatusBadgeComponent } from './components/status-badge/status-badge.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { LoginComponent } from './pages/login/login.component';
     ErrorAlertComponent,
     PaginationComponent,
     LoginComponent,
+    ProductComponent,
+    RegisterProductComponent,
+    StatusBadgeComponent,
   ],
   imports: [
     BrowserModule,

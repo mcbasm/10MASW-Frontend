@@ -13,26 +13,18 @@ export type PaginationResult<T> = {
 };
 //#endregion Pagination
 
-//#region Seguridad
-export type TokenResponse = {
-  token: string;
-};
-export interface TokenPayload {
-  email: string;
-  password: string;
-  name?: string;
-}
-export interface UserDetails {
-  _id: string;
-  email: string;
-  name: string;
-  exp: number;
-  iat: number;
-}
-
-//#endregion Seguridad
-
 //#region Schemas
+export type Product = {
+  _id?: string;
+  measurementUnit: MeasurementUnits;
+  mininumStock: number;
+  name: string;
+  status: boolean;
+  stock: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
 export type Role = {
   _id: string;
   name: string;
@@ -48,6 +40,25 @@ export type User = {
   role: Role;
 };
 //#endregion Schemas
+
+//#region Seguridad
+export type TokenResponse = {
+  role: Role;
+  token: string;
+};
+export interface TokenPayload {
+  email: string;
+  password: string;
+  name?: string;
+}
+export interface UserDetails {
+  _id: string;
+  email: string;
+  name: string;
+  exp: number;
+  iat: number;
+}
+//#endregion Seguridad
 //#endregion OBJECT TYPES
 
 //#region VALUE TYPES
@@ -55,8 +66,12 @@ export type ErrorMessage =
   | 'required'
   | 'minlength'
   | 'maxlength'
+  | 'min'
+  | 'max'
   | 'format'
   | 'equal'
   | 'custom'
   | 'email';
+
+export type MeasurementUnits = 'kg' | 'gr' | 'lt' | 'pkg';
 //#endregion VALUE TYPES

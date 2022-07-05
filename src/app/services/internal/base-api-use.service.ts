@@ -7,12 +7,12 @@ export class BaseApiUseService {
   //#region METHODS
   getAll<T>(
     call: (res: T[]) => any,
-    authenticationRequired: boolean = false
+    authenticationRequired: boolean = true
   ): void {
     this.apiService.get<T[]>(this._baseURL, authenticationRequired).subscribe({
       next: (data: T[]) => call(data),
       error: (error) => {
-        alert('Error durante el proceso.');
+        alert(error.error.message || 'Error durante el proceso.');
       },
       complete: () => {},
     });
@@ -21,7 +21,7 @@ export class BaseApiUseService {
   getPaginated<T>(
     pagination: Pagination,
     call: (res: PaginationResult<T>) => any,
-    authenticationRequired: boolean = false
+    authenticationRequired: boolean = true
   ): void {
     this.apiService
       .postPagination<T>(
@@ -32,7 +32,7 @@ export class BaseApiUseService {
       .subscribe({
         next: (data: PaginationResult<T>) => call(data),
         error: (error) => {
-          alert('Error durante el proceso.');
+          alert(error.error.message || 'Error durante el proceso.');
         },
         complete: () => {},
       });
@@ -41,14 +41,14 @@ export class BaseApiUseService {
   getById<T>(
     _id: string,
     call: (res: T) => any,
-    authenticationRequired: boolean = false
+    authenticationRequired: boolean = true
   ): void {
     this.apiService
       .get<T>(this._baseURL + '/' + _id, authenticationRequired)
       .subscribe({
         next: (data: T) => call(data),
         error: (error) => {
-          alert('Error durante el proceso.');
+          alert(error.error.message || 'Error durante el proceso.');
         },
         complete: () => {},
       });
@@ -57,14 +57,14 @@ export class BaseApiUseService {
   create<T>(
     obj: T,
     call: (res: T) => any,
-    authenticationRequired: boolean = false
+    authenticationRequired: boolean = true
   ): void {
     this.apiService
       .post<T>(this._baseURL, obj, authenticationRequired)
       .subscribe({
         next: (data: T) => call(data),
         error: (error) => {
-          alert('Error durante el proceso.');
+          alert(error.error.message || 'Error durante el proceso.');
         },
         complete: () => {},
       });
@@ -74,14 +74,14 @@ export class BaseApiUseService {
     obj: T,
     _id: string,
     call: (res: T) => any,
-    authenticationRequired: boolean = false
+    authenticationRequired: boolean = true
   ): void {
     this.apiService
       .put<T>(this._baseURL + '/' + _id, obj, authenticationRequired)
       .subscribe({
         next: (data: T) => call(data),
         error: (error) => {
-          alert('Error durante el proceso.');
+          alert(error.error.message || 'Error durante el proceso.');
         },
         complete: () => {},
       });
@@ -90,14 +90,14 @@ export class BaseApiUseService {
   delete<T>(
     _id: string,
     call: (res: T) => any,
-    authenticationRequired: boolean = false
+    authenticationRequired: boolean = true
   ): void {
     this.apiService
       .delete<T>(this._baseURL + '/' + _id, authenticationRequired)
       .subscribe({
         next: (data: T) => call(data),
         error: (error) => {
-          alert('Error durante el proceso.');
+          alert(error.error.message || 'Error durante el proceso.');
         },
         complete: () => {},
       });

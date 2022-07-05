@@ -10,57 +10,55 @@ import { Injectable } from '@angular/core';
 export class ApiCallService {
   //#region VARIABLES
   private apiURL = environment.backendAPI;
-  private authenticationHeaders;
   //#endregion VARIABLES
 
-  constructor(
-    private http: HttpClient,
-    private auth: AuthenticationService
-  ) {
-    this.authenticationHeaders = {
-      headers: {
-        Authorization: `Bearer ${this.auth.getToken()}`,
-      },
-    };
-  }
+  constructor(private http: HttpClient, private auth: AuthenticationService) {}
 
   //#region METHODS
-  get<T>(url: string, authenticationRequired: boolean = false) {
+  get<T>(url: string, authenticationRequired: boolean = true) {
     return this.http.get<T>(
       this.apiURL + url,
-      authenticationRequired ? this.authenticationHeaders : undefined
+      authenticationRequired ? this.generateHeaders() : undefined
     );
   }
-  post<T>(url: string, body: T | T[], authenticationRequired: boolean = false) {
+  post<T>(url: string, body: T | T[], authenticationRequired: boolean = true) {
     return this.http.post<T>(
       this.apiURL + url,
       body,
-      authenticationRequired ? this.authenticationHeaders : undefined
+      authenticationRequired ? this.generateHeaders() : undefined
     );
   }
   postPagination<T>(
     url: string,
     pagination: Pagination,
-    authenticationRequired: boolean = false
+    authenticationRequired: boolean = true
   ) {
     return this.http.post<PaginationResult<T>>(
       this.apiURL + url,
       pagination,
-      authenticationRequired ? this.authenticationHeaders : undefined
+      authenticationRequired ? this.generateHeaders() : undefined
     );
   }
-  put<T>(url: string, body: T | T[], authenticationRequired: boolean = false) {
+  put<T>(url: string, body: T | T[], authenticationRequired: boolean = true) {
     return this.http.put<T>(
       this.apiURL + url,
       body,
-      authenticationRequired ? this.authenticationHeaders : undefined
+      authenticationRequired ? this.generateHeaders() : undefined
     );
   }
-  delete<T>(url: string, authenticationRequired: boolean = false) {
+  delete<T>(url: string, authenticationRequired: boolean = true) {
     return this.http.delete<T>(
       this.apiURL + url,
-      authenticationRequired ? this.authenticationHeaders : undefined
+      authenticationRequired ? this.generateHeaders() : undefined
     );
+  }
+
+  private generateHeaders() {
+    return {
+      headers: {
+        Authorization: `Bearer ${this.auth.getToken()}`,
+      },
+    };
   }
   //#endregion METHODS
 }
