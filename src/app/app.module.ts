@@ -17,6 +17,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ProductComponent } from './pages/product/product.component';
 import { RegisterProductComponent } from './pages/product/register-product/register-product.component';
 import { StatusBadgeComponent } from './components/status-badge/status-badge.component';
+import { StatusPickerComponent } from './components/status-picker/status-picker.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { StatusBadgeComponent } from './components/status-badge/status-badge.com
     ProductComponent,
     RegisterProductComponent,
     StatusBadgeComponent,
+    StatusPickerComponent,
   ],
   imports: [
     BrowserModule,

@@ -27,13 +27,13 @@
                 <input
                   class="form-control"
                   type="number"
-                  formControlName="mininumStock"
+                  formControlName="minimumStock"
                 />
                 <app-error-alert
                   [display]="
-                    isControlInvalid(getControl(form, 'mininumStock')) &&
+                    isControlInvalid(getControl(form, 'minimumStock')) &&
                     hasControlError(
-                      getControl(form, 'mininumStock'),
+                      getControl(form, 'minimumStock'),
                       'required'
                     )
                   "
@@ -42,8 +42,8 @@
                 ></app-error-alert>
                 <app-error-alert
                   [display]="
-                    isControlInvalid(getControl(form, 'mininumStock')) &&
-                    hasControlError(getControl(form, 'mininumStock'), 'min')
+                    isControlInvalid(getControl(form, 'minimumStock')) &&
+                    hasControlError(getControl(form, 'minimumStock'), 'min')
                   "
                   [type]="'required'"
                   [field]="'Stock mínimo'"

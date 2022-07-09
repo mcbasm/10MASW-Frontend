@@ -5,6 +5,7 @@ export type Pagination = {
   page: number;
   totalItems: number;
   totalPages: number;
+  filter: any;
 };
 
 export type PaginationResult<T> = {
@@ -17,7 +18,7 @@ export type PaginationResult<T> = {
 export type Product = {
   _id?: string;
   measurementUnit: MeasurementUnits;
-  mininumStock: number;
+  minimumStock: number;
   name: string;
   status: boolean;
   stock: number;
@@ -28,6 +29,7 @@ export type Product = {
 export type Role = {
   _id: string;
   name: string;
+  nameES: string;
 };
 
 export type User = {
@@ -38,6 +40,7 @@ export type User = {
   password: string;
   phone: string;
   role: Role;
+  status?: boolean;
 };
 //#endregion Schemas
 

@@ -21,11 +21,15 @@ export class PaginationComponent implements OnInit, OnChanges {
     page: 1,
     totalItems: 0,
     totalPages: 1,
+    filter: {},
   };
+  @Input() filter: any = {};
   //#endregion INPUTS
 
   //#region OUTPUTS
   @Output() pageSelected: EventEmitter<number> = new EventEmitter<number>();
+  @Output() filterChange: EventEmitter<Pagination> =
+    new EventEmitter<Pagination>();
   //#endregion OUTPUTS
 
   //#region DATA
@@ -55,6 +59,12 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   nextPage() {
     this.pageSelected.emit(this.pagination.page + 1);
+  }
+
+  clearFilterItem(item: any) {
+    this.filter[item.key].value = undefined;
+    this.filterChange.emit(this.filter);
+    this.selectPage(this.pagination.page);
   }
 
   private fillNumbersArray() {

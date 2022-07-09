@@ -1,4 +1,24 @@
+<!-- Paginacion -->
 <div class="d-inline-flex flex-row p-2 bd-highlight">
+  <!-- Filtro -->
+  <div class="container-fluid align-middle">
+    <span *ngFor="let item of filter | keyvalue">
+      <button
+        *ngIf="$any(item.value).value != undefined"
+        class="badge rounded-pill bg-primary fs-6 btn btn-outline-secondary"
+        (click)="clearFilterItem(item)"
+      >
+        {{ $any(item.value).label }} :
+        <span *ngIf="$any(item.value).value === true">Activo</span
+        ><span *ngIf="$any(item.value).value === false">Inactivo</span
+        ><span *ngIf="![true, false].includes($any(item.value).value)">{{
+          $any(item.value).content
+            ? $any(item.value).content
+            : $any(item.value).value
+        }}</span>
+        <i class="fa-solid fa-circle-xmark ms-1"></i></button
+    ></span>
+  </div>
   <nav aria-label="Pagination">
     <ul class="pagination">
       <li class="page-item" *ngIf="pagination.page > 1">
@@ -18,7 +38,7 @@
       </li>
     </ul>
   </nav>
-  <span style="margin-left: 10px" class="align-middle"
+  <span style="margin-left: 10px; min-width: fit-content" class="align-middle"
     >{{ 1 + pagination.limit * (pagination.page - 1) }} -
     {{ pagination.limit * pagination.page }} de
     {{ pagination.totalItems }} registros</span

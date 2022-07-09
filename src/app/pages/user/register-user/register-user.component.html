@@ -69,7 +69,7 @@
                 <select class="form-select" formControlName="role">
                   <option>Seleccionar Rol</option>
                   <option *ngFor="let role of roles" [value]="role._id">
-                    {{ role.name }}
+                    {{ role.nameES }}
                   </option>
                 </select>
                 <app-error-alert

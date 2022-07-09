@@ -34,7 +34,7 @@ export class RegisterProductComponent
     /* Construir el formulario */
     this.form = this.fb.group({
       measurementUnit: ['', Validators.required],
-      mininumStock: [
+      minimumStock: [
         '',
         Validators.compose([Validators.required, Validators.min(0)]),
       ],
@@ -79,7 +79,7 @@ export class RegisterProductComponent
     this.productService.getById<Product>(this._id!, (res: Product) => {
       this.form.setValue({
         measurementUnit: res.measurementUnit,
-        mininumStock: res.mininumStock,
+        minimumStock: res.minimumStock,
         name: res.name,
         stock: res.stock,
       });
@@ -89,7 +89,7 @@ export class RegisterProductComponent
   private createObject(): Product {
     return {
       measurementUnit: this.form.value.measurementUnit,
-      mininumStock: this.form.value.mininumStock,
+      minimumStock: this.form.value.minimumStock,
       name: this.form.value.name,
       stock: this.form.value.stock,
       status: this.form.value.status,

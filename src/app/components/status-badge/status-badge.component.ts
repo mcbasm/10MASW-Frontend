@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class StatusBadgeComponent implements OnInit {
   //#region IMPORTS
-  @Input() status: boolean = true;
+  @Input() status: boolean | undefined = true;
   //#endregion IMPORTS
 
   constructor() {}

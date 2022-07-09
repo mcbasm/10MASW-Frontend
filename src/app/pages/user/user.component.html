@@ -8,7 +8,14 @@
               <h1>Usuarios</h1>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-2 text-end">
-              <button type="button" class="btn btn-warning" (click)="list()">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="showFilter(filterModal)"
+              >
+                <i class="fas fa-filter"></i> Filtrar
+              </button>
+              <button type="button" class="btn btn-warning" (click)="reload()">
                 <i class="fas fa-redo"></i> Recargar
               </button>
               <button
@@ -23,9 +30,10 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-12 text-end" *ngIf="items.length > 0">
+            <div class="col-12 text-end">
               <app-pagination
                 [pagination]="pagination"
+                [(filter)]="filter"
                 (pageSelected)="changePage($event)"
               ></app-pagination>
             </div>
@@ -39,6 +47,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Teléfono</th>
                     <th scope="col">Rol</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
@@ -50,6 +59,11 @@
                     <td>{{ item.email }}</td>
                     <td>{{ item.phone }}</td>
                     <td>{{ item.role?.name }}</td>
+                    <td>
+                      <app-status-badge
+                        [status]="item.status"
+                      ></app-status-badge>
+                    </td>
                     <td>
                       <div class="btn-group">
                         <button
@@ -79,3 +93,96 @@
     </div>
   </div>
 </div>
+
+<!-- Modal de Filtrado -->
+<ng-template #filterModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      <i class="fa-solid fa-filter"></i> Filtro
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+          <label class="col-form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            [(ngModel)]="filter.name.value"
+          />
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+          <label class="col-form-label">Apellidos</label>
+          <input
+            type="text"
+            class="form-control"
+            name="lastName"
+            [(ngModel)]="filter.lastName.value"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+          <label class="col-form-label">Email</label>
+          <input
+            type="text"
+            class="form-control"
+            name="email"
+            [(ngModel)]="filter.email.value"
+          />
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+          <label class="col-form-label">Teléfono</label>
+          <input
+            type="text"
+            class="form-control"
+            name="phone"
+            [(ngModel)]="filter.phone.value"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+          <label class="col-form-label">Rol</label>
+          <select
+            class="form-select"
+            [(ngModel)]="filter.role.value"
+            name="role"
+          >
+            <option>Seleccionar Rol</option>
+            <option *ngFor="let role of roles" [value]="role._id">
+              {{ role.nameES }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+          <label class="col-form-label">Estado</label>
+          <div class="form-control">
+            <app-status-picker
+              [(status)]="filter.status.value"
+            ></app-status-picker>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="modal.close('filter')"
+    >
+      <i class="fa-solid fa-filter"></i> Filtrar
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,25 @@
+<div class="btn-group" role="group" aria-label="Radio Buttons with Bootstrap 5">
+  <input
+    type="radio"
+    [formControl]="radio"
+    [value]="true"
+    class="btn-check"
+    id="statusTrue"
+    autocomplete="off"
+  />
+  <label class="btn btn-outline-success" for="statusTrue"
+    ><i class="fa-solid fa-thumbs-up"></i> Activo</label
+  >
+
+  <input
+    type="radio"
+    [formControl]="radio"
+    [value]="false"
+    class="btn-check"
+    id="statusFalse"
+    autocomplete="off"
+  />
+  <label class="btn btn-outline-danger" for="statusFalse"
+    ><i class="fa-solid fa-thumbs-down"></i> Inactivo</label
+  >
+</div>

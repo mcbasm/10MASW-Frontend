@@ -1,6 +1,13 @@
+import { buildFilter } from 'src/app/functions/FilterFunctions';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { ProductService } from './../../services/external/product.service';
-import { Product, Pagination, PaginationResult } from './../../types/types';
+import {
+  Product,
+  Pagination,
+  PaginationResult,
+  MeasurementUnits,
+} from './../../types/types';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -16,19 +23,27 @@ export class ProductComponent implements OnInit {
     page: 1,
     totalItems: 0,
     totalPages: 1,
+    filter: {},
   };
+  measurementUnits: MeasurementUnits[] = ['gr', 'kg', 'lt', 'pkg'];
+  filter: any;
   //#endregion VARIABLES
 
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    private modalService: NgbModal
+  ) {}
 
   //#region LIFECYCLE
   ngOnInit(): void {
-    this.list();
+    this.reload();
   }
   //#endregion LIFECYCLE
 
   //#region METHODS
   list() {
+    this.pagination.filter = buildFilter(this.filter);
     this.productService.getPaginated<Product>(
       this.pagination,
       (res: PaginationResult<Product>) => {
@@ -52,6 +67,32 @@ export class ProductComponent implements OnInit {
       this.productService.delete<Product>(_id, (res: Product) => {
         this.list();
       });
+  }
+
+  showFilter(modal: any): void {
+    this.modalService.open(modal, { size: 'lg' }).result.then(
+      (res: any) => {
+        if (res === 'filter') {
+          this.list();
+        }
+      },
+      (rej: any) => {}
+    );
+  }
+
+  reload() {
+    this.initializeFilter();
+    this.list();
+  }
+
+  private initializeFilter(): void {
+    this.filter = {
+      name: { label: 'Nombre' },
+      stock: { label: 'Stock actual' },
+      minimumStock: { label: 'Stock mínimo' },
+      measurementUnit: { label: 'Unidad de Medida' },
+      status: { label: 'Estado', value: true },
+    };
   }
   //#endregion METHODS
 }
