@@ -1,11 +1,11 @@
 //#region OBJECT TYPES
 //#region Pagination
 export type Pagination = {
+  filter: any;
   limit: number;
   page: number;
   totalItems: number;
   totalPages: number;
-  filter: any;
 };
 
 export type PaginationResult<T> = {
@@ -15,6 +15,19 @@ export type PaginationResult<T> = {
 //#endregion Pagination
 
 //#region Schemas
+export type Invoice = {
+  _id?: string;
+  billNumber: string;
+  buyDate: Date;
+  currency: Currency;
+  deliveryDate: Date;
+  products: ProductInvoice[];
+  provider: string;
+  total: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
 export type Product = {
   _id?: string;
   measurementUnit: MeasurementUnits;
@@ -26,21 +39,34 @@ export type Product = {
   updatedAt?: Date;
 };
 
+export type ProductInvoice = {
+  _id?: string;
+  product: Product;
+  quantity: number;
+  total: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
 export type Role = {
   _id: string;
   name: string;
   nameES: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type User = {
   _id?: string;
-  name: string;
-  lastName: string;
   email: string;
+  lastName: string;
+  name: string;
   password: string;
   phone: string;
   role: Role;
   status?: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 //#endregion Schemas
 
@@ -57,14 +83,16 @@ export interface TokenPayload {
 export interface UserDetails {
   _id: string;
   email: string;
-  name: string;
   exp: number;
   iat: number;
+  name: string;
 }
 //#endregion Seguridad
 //#endregion OBJECT TYPES
 
 //#region VALUE TYPES
+export type Currency = 'S/.' | '$' | '€';
+
 export type ErrorMessage =
   | 'required'
   | 'minlength'

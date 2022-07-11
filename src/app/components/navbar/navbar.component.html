@@ -33,17 +33,19 @@
           <a
             class="nav-link dropdown-toggle"
             href="#"
-            id="usersDropdownNav"
+            id="invoiceDropdownNav"
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Usuarios
+            Compras
           </a>
-          <ul class="dropdown-menu" aria-labelledby="usersDropdownNav">
-            <li><a class="dropdown-item" routerLink="users">Listado</a></li>
+          <ul class="dropdown-menu" aria-labelledby="invoiceDropdownNav">
+            <li><a class="dropdown-item" routerLink="invoice">Listado</a></li>
             <li>
-              <a class="dropdown-item" routerLink="users/register">Registro</a>
+              <a class="dropdown-item" routerLink="invoice/register"
+                >Registro</a
+              >
             </li>
           </ul>
         </li>
@@ -64,6 +66,24 @@
               <a class="dropdown-item" routerLink="product/register"
                 >Registro</a
               >
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="usersDropdownNav"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Usuarios
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="usersDropdownNav">
+            <li><a class="dropdown-item" routerLink="users">Listado</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="users/register">Registro</a>
             </li>
           </ul>
         </li>

@@ -1,0 +1,185 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-6 col-md-8 col-lg-10">
+              <h1>Compras</h1>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-2 text-end">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="showFilter(filterModal)"
+              >
+                <i class="fas fa-filter"></i> Filtrar
+              </button>
+              <button type="button" class="btn btn-warning" (click)="reload()">
+                <i class="fas fa-redo"></i> Recargar
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                routerLink="register"
+              >
+                <i class="fas fa-plus"></i> Nuevo
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 text-end">
+              <app-pagination
+                [pagination]="pagination"
+                [(filter)]="filter"
+                (pageSelected)="changePage($event)"
+              ></app-pagination>
+            </div>
+            <div class="col-12 table-responsive" *ngIf="items.length > 0">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 6rem">N°</th>
+                    <th scope="col">Fecha Compra</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Moneda</th>
+                    <th scope="col">Proveedor</th>
+                    <th scope="col">Fecha Entrega</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.buyDate | date: "dd/MM/yyyy HH:mm" }}</td>
+                    <td>{{ item.total }}</td>
+                    <td>{{ item.currency }}</td>
+                    <td>{{ item.provider }}</td>
+                    <td>{{ item.deliveryDate | date: "dd/MM/yyyy HH:mm" }}</td>
+                    <td>
+                      <div class="btn-group">
+                        <button
+                          class="btn btn-warning"
+                          (click)="edit(item._id!)"
+                        >
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button
+                          class="btn btn-danger"
+                          (click)="delete(item._id!)"
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-12" *ngIf="items.length === 0">
+              <h2>No hay registros disponibles.</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Filtrado -->
+<ng-template #filterModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      <i class="fa-solid fa-filter"></i> Filtro
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+          <label class="col-form-label">Fecha Compra</label>
+          <div class="input-group">
+            <input
+              class="form-control"
+              placeholder="dd/mm/yyyy"
+              name="buyDate"
+              #cBuyDate="ngModel"
+              [(ngModel)]="filter.buyDate.valueDate"
+              ngbDatepicker
+              #buyDate="ngbDatepicker"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              (click)="buyDate.toggle()"
+              type="button"
+            >
+              <i class="fa-solid fa-calendar-days"></i>
+            </button>
+          </div>
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+          <label class="col-form-label">Fecha Entrega</label>
+          <div class="input-group">
+            <input
+              class="form-control"
+              placeholder="dd/mm/yyyy"
+              name="deliveryDate"
+              #cDeliveryDate="ngModel"
+              [(ngModel)]="filter.deliveryDate.valueDate"
+              ngbDatepicker
+              #deliveryDate="ngbDatepicker"
+            />
+            <button
+              class="btn btn-outline-secondary"
+              (click)="deliveryDate.toggle()"
+              type="button"
+            >
+              <i class="fa-solid fa-calendar-days"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+          <label class="col-form-label">Proveedor</label>
+          <input
+            type="text"
+            class="form-control"
+            name="provider"
+            [(ngModel)]="filter.provider.value"
+          />
+        </div>
+        <div class="form-group col-sm-12 col-md-12 col-lg-6">
+          <label class="col-form-label">Moneda</label>
+          <select
+            class="form-select"
+            [(ngModel)]="filter.currency.value"
+            name="currency"
+          >
+            <option>Seleccionar Unidad</option>
+            <option *ngFor="let currency of currencies" [value]="currency">
+              {{ currency }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="modal.close('filter')"
+    >
+      <i class="fa-solid fa-filter"></i> Filtrar
+    </button>
+  </div>
+</ng-template>

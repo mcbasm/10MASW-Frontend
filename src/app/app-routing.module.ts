@@ -1,7 +1,9 @@
+//#region IMPORTS
+import { RegisterInvoiceComponent } from './pages/invoice/register-invoice/register-invoice.component';
+import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { RegisterProductComponent } from './pages/product/register-product/register-product.component';
 import { ProductComponent } from './pages/product/product.component';
 import { LoginComponent } from './pages/login/login.component';
-//#region IMPORTS
 import { RegisterUserComponent } from './pages/user/register-user/register-user.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -15,23 +17,22 @@ import { AuthGuardService } from './services/internal/auth-guard.service';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
-  { path: 'login', component: LoginComponent },
   {
-    path: 'users',
+    path: 'invoice',
     children: [
-      { path: '', component: UserComponent, canActivate: [AuthGuardService] },
       {
-        path: 'register',
-        component: RegisterUserComponent,
+        path: '',
+        component: InvoiceComponent,
         canActivate: [AuthGuardService],
       },
       {
-        path: 'edit/:id',
-        component: RegisterUserComponent,
+        path: 'register',
+        component: RegisterInvoiceComponent,
         canActivate: [AuthGuardService],
       },
     ],
   },
+  { path: 'login', component: LoginComponent },
   {
     path: 'product',
     children: [
@@ -52,6 +53,23 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: 'users',
+    children: [
+      { path: '', component: UserComponent, canActivate: [AuthGuardService] },
+      {
+        path: 'register',
+        component: RegisterUserComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'edit/:id',
+        component: RegisterUserComponent,
+        canActivate: [AuthGuardService],
+      },
+    ],
+  },
+
   {
     path: '**',
     component: PageNotFoundComponent,

@@ -18,6 +18,9 @@ import { ProductComponent } from './pages/product/product.component';
 import { RegisterProductComponent } from './pages/product/register-product/register-product.component';
 import { StatusBadgeComponent } from './components/status-badge/status-badge.component';
 import { StatusPickerComponent } from './components/status-picker/status-picker.component';
+import { InvoiceComponent } from './pages/invoice/invoice.component';
+import { RegisterInvoiceComponent } from './pages/invoice/register-invoice/register-invoice.component';
+import { InstanceofdatePipe } from './pipes/instanceofdate.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,9 @@ import { StatusPickerComponent } from './components/status-picker/status-picker.
     RegisterProductComponent,
     StatusBadgeComponent,
     StatusPickerComponent,
+    InvoiceComponent,
+    RegisterInvoiceComponent,
+    InstanceofdatePipe,
   ],
   imports: [
     BrowserModule,

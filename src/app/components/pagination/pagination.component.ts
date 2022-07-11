@@ -44,6 +44,21 @@ export class PaginationComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    for (const key in this.filter) {
+      if (Object.prototype.hasOwnProperty.call(this.filter, key)) {
+        const element = this.filter[key];
+
+        let value = element.valueDate;
+
+        if (typeof value === 'object' && value) {
+          this.filter[key].value = new Date(
+            value.year,
+            value.month - 1,
+            value.day
+          );
+        }
+      }
+    }
     this.fillNumbersArray();
   }
   //#endregion LIFECYCLE

@@ -4,7 +4,10 @@
   <div class="container-fluid align-middle">
     <span *ngFor="let item of filter | keyvalue">
       <button
-        *ngIf="$any(item.value).value != undefined"
+        *ngIf="
+          $any(item.value).value != undefined ||
+          $any(item.value).valueDate != undefined
+        "
         class="badge rounded-pill bg-primary fs-6 btn btn-outline-secondary"
         (click)="clearFilterItem(item)"
       >
@@ -14,6 +17,8 @@
         ><span *ngIf="![true, false].includes($any(item.value).value)">{{
           $any(item.value).content
             ? $any(item.value).content
+            : ($any(item.value).valueDate | instanceofdate)
+            ? ($any(item.value).value | date: "dd/MM/yyyy")
             : $any(item.value).value
         }}</span>
         <i class="fa-solid fa-circle-xmark ms-1"></i></button
