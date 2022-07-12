@@ -21,6 +21,7 @@ import { StatusPickerComponent } from './components/status-picker/status-picker.
 import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { RegisterInvoiceComponent } from './pages/invoice/register-invoice/register-invoice.component';
 import { InstanceofdatePipe } from './pipes/instanceofdate.pipe';
+import { DatepickerComponent } from './components/datepicker/datepicker.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { InstanceofdatePipe } from './pipes/instanceofdate.pipe';
     InvoiceComponent,
     RegisterInvoiceComponent,
     InstanceofdatePipe,
+    DatepickerComponent,
   ],
   imports: [
     BrowserModule,

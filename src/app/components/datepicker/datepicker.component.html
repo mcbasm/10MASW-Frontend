@@ -1,0 +1,19 @@
+<div class="input-group">
+  <input
+    class="form-control"
+    placeholder="dd/mm/yyyy"
+    name="deliveryDate"
+    #cDeliveryDate="ngModel"
+    [ngModel]="value"
+    (dateSelect)="dateSelect($event)"
+    ngbDatepicker
+    #deliveryDate="ngbDatepicker"
+  />
+  <button
+    class="btn btn-outline-secondary"
+    (click)="deliveryDate.toggle()"
+    type="button"
+  >
+    <i class="fa-solid fa-calendar-days"></i>
+  </button>
+</div>

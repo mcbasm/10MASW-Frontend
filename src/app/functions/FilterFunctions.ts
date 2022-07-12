@@ -4,11 +4,13 @@ export function buildFilter(object: any) {
     if (Object.prototype.hasOwnProperty.call(object, key)) {
       const element = object[key];
 
+      console.log('Element', element);
+
       if (element.isId && element.value) {
         filter[key] = { value: element.value, isId: element.isId };
       } else {
         // Solo se envian objetos de NgbDateStruct
-        if (typeof element.valueDate === 'object') {
+        if (typeof element.value === 'object') {
           filter[key] = new Date(
             element.valueDate.year,
             element.valueDate.month - 1,
