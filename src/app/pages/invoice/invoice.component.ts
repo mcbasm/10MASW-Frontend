@@ -1,3 +1,4 @@
+import { CURRENCIES } from './../../variables/GlobalVariables';
 import { Currency } from './../../types/types';
 import { InvoiceService } from './../../services/external/invoice.service';
 import { Component, OnInit } from '@angular/core';
@@ -22,7 +23,7 @@ export class InvoiceComponent implements OnInit {
     filter: {},
   };
   filter: any;
-  currencies: Currency[] = ['$', 'S/.', '€'];
+  currencies: Currency[] = CURRENCIES;
   //#endregion VARIABLES
 
   constructor(

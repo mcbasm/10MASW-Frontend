@@ -1,3 +1,4 @@
+import { MEASUREMENT_UNITS } from './../../variables/GlobalVariables';
 import { buildFilter } from 'src/app/functions/FilterFunctions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
@@ -25,7 +26,7 @@ export class ProductComponent implements OnInit {
     totalPages: 1,
     filter: {},
   };
-  measurementUnits: MeasurementUnits[] = ['gr', 'kg', 'lt', 'pkg'];
+  measurementUnits: MeasurementUnits[] = MEASUREMENT_UNITS;
   filter: any;
   //#endregion VARIABLES
 

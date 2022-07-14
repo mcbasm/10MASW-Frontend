@@ -1,1 +1,286 @@
-<p>register-invoice works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h2>Registro de Compras</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="form" (ngSubmit)="save()">
+            <div class="row">
+              <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                <div class="row">
+                  <div class="col-6">
+                    <label class="col-form-label">Fecha de Compra</label>
+                    <app-datepicker
+                      [isForm]="true"
+                      [field]="'buyDate'"
+                      [formControlUsed]="getControl(form, 'buyDate')"
+                    ></app-datepicker>
+                    <app-error-alert
+                      [display]="isControlInvalid(getControl(form, 'buyDate'))"
+                      [type]="'required'"
+                      [field]="'Fecha de Compra'"
+                    >
+                    </app-error-alert>
+                  </div>
+                  <div class="col-3">
+                    <label class="col-form-label">Hora (Fecha de Compra)</label>
+                    <select class="form-select" formControlName="buyDateHour">
+                      <option>Seleccionar Hora</option>
+                      <option *ngFor="let hour of hours" [value]="hour">
+                        {{ hour }}
+                      </option>
+                    </select>
+                    <app-error-alert
+                      [display]="
+                        isControlInvalid(getControl(form, 'buyDateHour')) &&
+                        hasControlError(
+                          getControl(form, 'buyDateHour'),
+                          'required'
+                        )
+                      "
+                      [type]="'required'"
+                      [field]="'Hora (Fecha de Compra)'"
+                    ></app-error-alert>
+                  </div>
+                  <div class="col-3">
+                    <label class="col-form-label"
+                      >Minuto (Fecha de Compra)</label
+                    >
+                    <input
+                      class="form-control"
+                      type="number"
+                      formControlName="buyDateMinute"
+                    />
+                    <app-error-alert
+                      [display]="
+                        isControlInvalid(getControl(form, 'buyDateMinute')) &&
+                        hasControlError(
+                          getControl(form, 'buyDateMinute'),
+                          'required'
+                        )
+                      "
+                      [type]="'required'"
+                      [field]="'Hora (Fecha de Compra)'"
+                    ></app-error-alert>
+                    <app-error-alert
+                      [display]="
+                        isControlInvalid(getControl(form, 'buyDateMinute')) &&
+                        hasControlError(
+                          getControl(form, 'buyDateMinute'),
+                          'min'
+                        )
+                      "
+                      [type]="'required'"
+                      [field]="'Hora (Fecha de Compra)'"
+                      [value]="0"
+                    >
+                    </app-error-alert>
+                    <app-error-alert
+                      [display]="
+                        isControlInvalid(getControl(form, 'buyDateMinute')) &&
+                        hasControlError(
+                          getControl(form, 'buyDateMinute'),
+                          'max'
+                        )
+                      "
+                      [type]="'required'"
+                      [field]="'Hora (Fecha de Compra)'"
+                      [value]="59"
+                    >
+                    </app-error-alert>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                <div class="row">
+                  <div class="col-6">
+                    <label class="col-form-label">Fecha de Entrega</label>
+                    <app-datepicker
+                      [isForm]="true"
+                      [field]="'deliveryDate'"
+                      [formControlUsed]="getControl(form, 'deliveryDate')"
+                    ></app-datepicker>
+                    <app-error-alert
+                      [display]="
+                        isControlInvalid(getControl(form, 'deliveryDate'))
+                      "
+                      [type]="'required'"
+                      [field]="'Fecha de Entrega'"
+                    >
+                    </app-error-alert>
+                  </div>
+
+                  <div class="col-3">
+                    <label class="col-form-label"
+                      >Hora (Fecha de Entrega)</label
+                    >
+                    <select
+                      class="form-select"
+                      formControlName="deliveryDateHour"
+                    >
+                      <option>Seleccionar Hora</option>
+                      <option *ngFor="let hour of hours" [value]="hour">
+                        {{ hour }}
+                      </option>
+                    </select>
+                    <app-error-alert
+                      [display]="
+                        isControlInvalid(
+                          getControl(form, 'deliveryDateHour')
+                        ) &&
+                        hasControlError(
+                          getControl(form, 'deliveryDateHour'),
+                          'required'
+                        )
+                      "
+                      [type]="'required'"
+                      [field]="'Hora (Fecha de Entrega)'"
+                    ></app-error-alert>
+                  </div>
+                  <div class="col-3">
+                    <label class="col-form-label"
+                      >Minuto (Fecha de Entrega)</label
+                    >
+                    <input
+                      class="form-control"
+                      type="number"
+                      formControlName="deliveryDateMinute"
+                    />
+                    <app-error-alert
+                      [display]="
+                        isControlInvalid(
+                          getControl(form, 'deliveryDateMinute')
+                        ) &&
+                        hasControlError(
+                          getControl(form, 'deliveryDateMinute'),
+                          'required'
+                        )
+                      "
+                      [type]="'required'"
+                      [field]="'Hora (Fecha de Entrega)'"
+                    ></app-error-alert>
+                    <app-error-alert
+                      [display]="
+                        isControlInvalid(
+                          getControl(form, 'deliveryDateMinute')
+                        ) &&
+                        hasControlError(
+                          getControl(form, 'deliveryDateMinute'),
+                          'min'
+                        )
+                      "
+                      [type]="'required'"
+                      [field]="'Hora (Fecha de Entrega)'"
+                      [value]="0"
+                    >
+                    </app-error-alert>
+                    <app-error-alert
+                      [display]="
+                        isControlInvalid(
+                          getControl(form, 'deliveryDateMinute')
+                        ) &&
+                        hasControlError(
+                          getControl(form, 'deliveryDateMinute'),
+                          'max'
+                        )
+                      "
+                      [type]="'required'"
+                      [field]="'Hora (Fecha de Entrega)'"
+                      [value]="59"
+                    >
+                    </app-error-alert>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                <label class="col-form-label">Número de Factura</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="billNumber"
+                />
+                <app-error-alert
+                  [display]="
+                    isControlInvalid(getControl(form, 'billNumber')) &&
+                    hasControlError(getControl(form, 'billNumber'), 'required')
+                  "
+                  [type]="'required'"
+                  [field]="'Número de Factura'"
+                ></app-error-alert>
+              </div>
+              <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                <label class="col-form-label">Moneda de Pago</label>
+                <select class="form-select" formControlName="currency">
+                  <option>Seleccionar Moneda</option>
+                  <option
+                    *ngFor="let currency of currencies"
+                    [value]="currency"
+                  >
+                    {{ currency }}
+                  </option>
+                </select>
+                <app-error-alert
+                  [display]="isControlInvalid(getControl(form, 'currency'))"
+                  [type]="'required'"
+                  [field]="'Moneda de Pago'"
+                >
+                </app-error-alert>
+              </div>
+
+              <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                <label class="col-form-label">Proveedor</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="provider"
+                />
+                <app-error-alert
+                  [display]="
+                    isControlInvalid(getControl(form, 'provider')) &&
+                    hasControlError(getControl(form, 'provider'), 'required')
+                  "
+                  [type]="'required'"
+                  [field]="'Proveedor'"
+                ></app-error-alert>
+              </div>
+              <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                <label class="col-form-label">Monto Total</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  formControlName="total"
+                />
+                <app-error-alert
+                  [display]="
+                    isControlInvalid(getControl(form, 'total')) &&
+                    hasControlError(getControl(form, 'total'), 'required')
+                  "
+                  [type]="'required'"
+                  [field]="'Monto Total'"
+                ></app-error-alert>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="form-group col-12 text-end">
+                <div class="btn-group" role="group">
+                  <button
+                    class="btn btn-success"
+                    type="submit"
+                    [disabled]="!form.valid && products.length <= 0"
+                  >
+                    <i class="far fa-save"></i> Guardar
+                  </button>
+                  <button class="btn btn-danger" type="reset" (click)="reset()">
+                    <i class="far fa-trash-alt"></i> Limpiar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

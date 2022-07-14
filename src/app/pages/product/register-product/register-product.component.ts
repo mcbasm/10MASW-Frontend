@@ -1,3 +1,4 @@
+import { MEASUREMENT_UNITS } from './../../../variables/GlobalVariables';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from './../../../services/external/product.service';
 import { MeasurementUnits, Product } from './../../../types/types';
@@ -18,7 +19,7 @@ export class RegisterProductComponent
   form!: FormGroup;
   private _id: string | undefined;
   edition: boolean = false;
-  measurementUnits: MeasurementUnits[] = ['gr', 'kg', 'lt', 'pkg'];
+  measurementUnits: MeasurementUnits[] = MEASUREMENT_UNITS;
   //#endregion DATA
 
   constructor(

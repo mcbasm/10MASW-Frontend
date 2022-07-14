@@ -1,17 +1,36 @@
-<div class="input-group">
+<!-- ngModel -->
+<div class="input-group" *ngIf="!isForm">
   <input
     class="form-control"
     placeholder="dd/mm/yyyy"
-    name="deliveryDate"
-    #cDeliveryDate="ngModel"
+    name="ngModelPicker"
+    #cNgModelPicker="ngModel"
     [ngModel]="value"
     (dateSelect)="dateSelect($event)"
     ngbDatepicker
-    #deliveryDate="ngbDatepicker"
+    #ngModelPicker="ngbDatepicker"
   />
   <button
     class="btn btn-outline-secondary"
-    (click)="deliveryDate.toggle()"
+    (click)="ngModelPicker.toggle()"
+    type="button"
+  >
+    <i class="fa-solid fa-calendar-days"></i>
+  </button>
+</div>
+<!-- Reactive Form -->
+<div class="input-group" *ngIf="isForm">
+  <input
+    class="form-control"
+    placeholder="dd/mm/yyyy"
+    name="reactiveFormPicker"
+    [formControl]="$any(formControlUsed)"
+    ngbDatepicker
+    #reactiveFormPicker="ngbDatepicker"
+  />
+  <button
+    class="btn btn-outline-secondary"
+    (click)="reactiveFormPicker.toggle()"
     type="button"
   >
     <i class="fa-solid fa-calendar-days"></i>

@@ -18,9 +18,9 @@ export type PaginationResult<T> = {
 export type Invoice = {
   _id?: string;
   billNumber: string;
-  buyDate: Date;
+  buyDate: Date | string;
   currency: Currency;
-  deliveryDate: Date;
+  deliveryDate: Date | string;
   products: ProductInvoice[];
   provider: string;
   total: number;

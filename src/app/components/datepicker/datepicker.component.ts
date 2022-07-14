@@ -1,3 +1,4 @@
+import { AbstractControl, FormControl } from '@angular/forms';
 import { DATE_DELIMITER } from './../../variables/GlobalVariables';
 import {
   NgbDate,
@@ -23,6 +24,8 @@ export class DatepickerComponent implements OnInit {
   //#region INPUTS
   @Input() field: string = 'field';
   @Input() value!: string;
+  @Input() isForm: boolean = false;
+  @Input() formControlUsed!: AbstractControl;
   //#endregion INPUTS
 
   //#region OUTPUTS
