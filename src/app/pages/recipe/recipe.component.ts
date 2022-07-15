@@ -60,7 +60,7 @@ export class RecipeComponent implements OnInit {
   }
 
   edit(_id: string): void {
-    this.router.navigate(['users/edit', _id]);
+    this.router.navigate(['recipe/edit', _id]);
   }
 
   delete(_id: string): void {

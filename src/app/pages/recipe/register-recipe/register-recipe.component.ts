@@ -1,7 +1,7 @@
 import { ReactiveFormsFunctions } from './../../../functions/ReactiveFormsFunctions';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { RecipeService } from 'src/app/services/external/recipe.service';
 import { ProductPicked, Currency, Recipe } from 'src/app/types/types';
 import { CURRENCIES } from 'src/app/variables/GlobalVariables';
@@ -20,12 +20,14 @@ export class RegisterRecipeComponent
   products: ProductPicked[] = [];
   currencies: Currency[] = CURRENCIES;
   edition: boolean = false;
+  private _id!: string;
   //#endregion DATA
 
   constructor(
     private fb: FormBuilder,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     super();
   }
@@ -39,7 +41,12 @@ export class RegisterRecipeComponent
       total: [0, [Validators.required, Validators.min(0)]],
     });
 
-    this.reset();
+    /* Obtener el id en caso haya edicion */
+    if (this.router.url.indexOf('/edit') > -1) {
+      this._id = this.activatedRoute.snapshot.paramMap.get('id')!;
+      this.edition = true;
+      this.getRecipe();
+    } else this.reset();
   }
   //#endregion LIFECYCLE
 
@@ -56,7 +63,17 @@ export class RegisterRecipeComponent
     });
   }
 
-  edit() {}
+  edit() {
+    this.recipeService.edit<Recipe>(
+      this.createObject(),
+      this._id,
+      (res: Recipe) => {
+        if (res._id) {
+          this.router.navigate(['recipe']);
+        }
+      }
+    );
+  }
 
   addProduct(product: ProductPicked): void {
     this.products.push(product);
@@ -84,6 +101,7 @@ export class RegisterRecipeComponent
 
   private createObject(): Recipe {
     return {
+      _id: this._id,
       currency: this.getValue(this.form, 'currency'),
       name: this.getValue(this.form, 'name'),
       products: this.products,
@@ -95,5 +113,17 @@ export class RegisterRecipeComponent
     this.setValue(this.form, 'total', value);
   }
 
+  private getRecipe(): void {
+    this.recipeService.getById<Recipe>(this._id, (res: Recipe) => {
+      if (res._id) {
+        this.products = res.products;
+        this.form.setValue({
+          currency: res.currency,
+          name: res.name,
+          total: res.total,
+        });
+      }
+    });
+  }
   //#endregion METHODS
 }
