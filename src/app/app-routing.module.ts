@@ -1,3 +1,5 @@
+import { RegisterRecipeComponent } from './pages/recipe/register-recipe/register-recipe.component';
+import { RecipeComponent } from './pages/recipe/recipe.component';
 //#region IMPORTS
 import { RegisterInvoiceComponent } from './pages/invoice/register-invoice/register-invoice.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
@@ -33,6 +35,26 @@ const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'recipe',
+    children: [
+      {
+        path: '',
+        component: RecipeComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'register',
+        component: RegisterRecipeComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'edit/:id',
+        component: RegisterRecipeComponent,
+        canActivate: [AuthGuardService],
+      },
+    ],
+  },
   {
     path: 'product',
     children: [

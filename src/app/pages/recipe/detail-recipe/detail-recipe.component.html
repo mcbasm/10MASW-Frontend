@@ -2,7 +2,7 @@
   <!-- Detalles de la Compra -->
   <div class="row">
     <div class="col-12">
-      <div class="accordion" id="accordionInvoiceDetail">
+      <div class="accordion" id="accordionRecipeDetail">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingInfo">
             <button
@@ -13,43 +13,23 @@
               aria-expanded="true"
               aria-controls="collapseInfo"
             >
-              <h4>Detalles de la Compra</h4>
+              <h4>Detalles del Plato</h4>
             </button>
           </h2>
           <div
             id="collapseInfo"
             class="accordion-collapse collapse show"
             aria-labelledby="headingInfo"
-            data-bs-parent="#accordionInvoiceDetail"
+            data-bs-parent="#accordionRecipeDetail"
           >
             <div class="accordion-body">
               <div class="row">
                 <div class="form-group col-sm-12 col-md-6 col-lg-6">
-                  <label class="col-form-label">Fecha de Compra</label>
+                  <label class="col-form-label">Nombre</label>
                   <input
                     class="form-control"
                     type="text"
-                    [ngModel]="item?.buyDate | date: 'dd/MM/yyyy HH:mm'"
-                    readonly
-                  />
-                </div>
-                <div class="form-group col-sm-12 col-md-6 col-lg-6">
-                  <label class="col-form-label">Fecha de Entrega</label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    [ngModel]="item?.deliveryDate | date: 'dd/MM/yyyy HH:mm'"
-                    readonly
-                  />
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-sm-12 col-md-6 col-lg-6">
-                  <label class="col-form-label">N° de Factura</label>
-                  <input
-                    class="form-control"
-                    type="text"
-                    [ngModel]="item?.billNumber"
+                    [ngModel]="item?.name"
                     readonly
                   />
                 </div>
@@ -64,12 +44,21 @@
                 </div>
               </div>
               <div class="row">
-                <div class="form-group col-sm-12 col-md-12 col-lg-12">
-                  <label class="col-form-label">Proveedor</label>
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                  <label class="col-form-label">Fecha de Creación</label>
                   <input
                     class="form-control"
                     type="text"
-                    [ngModel]="item?.provider"
+                    [ngModel]="item?.createdAt | date: 'dd/MM/yyyy HH:mm'"
+                    readonly
+                  />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                  <label class="col-form-label">Ultima modificación</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [ngModel]="item?.updatedAt | date: 'dd/MM/yyyy HH:mm'"
                     readonly
                   />
                 </div>
@@ -94,7 +83,7 @@
             id="collapseProducts"
             class="accordion-collapse collapse"
             aria-labelledby="headingProducts"
-            data-bs-parent="#accordionInvoiceDetail"
+            data-bs-parent="#accordionRecipeDetail"
           >
             <div class="accordion-body">
               <div class="row" *ngIf="item">
@@ -109,7 +98,6 @@
                         <th scope="col">Producto</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Unidad de Medida</th>
-                        <th scope="col">Total</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -118,7 +106,6 @@
                         <td>{{ item.product.name }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>{{ item.product.measurementUnit }}</td>
-                        <td>{{ item?.total }}</td>
                       </tr>
                     </tbody>
                   </table>

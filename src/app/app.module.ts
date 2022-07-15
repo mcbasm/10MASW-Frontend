@@ -25,6 +25,9 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
 import { ProductPickerComponent } from './components/product-picker/product-picker.component';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
 import { DetailInvoiceComponent } from './pages/invoice/detail-invoice/detail-invoice.component';
+import { RecipeComponent } from './pages/recipe/recipe.component';
+import { RegisterRecipeComponent } from './pages/recipe/register-recipe/register-recipe.component';
+import { DetailRecipeComponent } from './pages/recipe/detail-recipe/detail-recipe.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,9 @@ import { DetailInvoiceComponent } from './pages/invoice/detail-invoice/detail-in
     ProductPickerComponent,
     ProductSearchComponent,
     DetailInvoiceComponent,
+    RecipeComponent,
+    RegisterRecipeComponent,
+    DetailRecipeComponent,
   ],
   imports: [
     BrowserModule,

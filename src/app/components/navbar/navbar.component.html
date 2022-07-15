@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-light">
+<nav class="navbar navbar-expand-lg bg-light mb-3">
   <!-- Home button -->
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
@@ -46,6 +46,24 @@
               <a class="dropdown-item" routerLink="invoice/register"
                 >Registro</a
               >
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="recipesDropdownNav"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Platos
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="recipesDropdownNav">
+            <li><a class="dropdown-item" routerLink="recipe">Listado</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="recipe/register">Registro</a>
             </li>
           </ul>
         </li>

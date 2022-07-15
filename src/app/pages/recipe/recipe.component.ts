@@ -1,22 +1,27 @@
-import {
-  CURRENCIES,
-  NGB_MODAL_OPTIONS,
-} from './../../variables/GlobalVariables';
-import { Currency } from './../../types/types';
-import { InvoiceService } from './../../services/external/invoice.service';
+import { Router } from '@angular/router';
+import { RecipeService } from './../../services/external/recipe.service';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { buildFilter } from 'src/app/functions/FilterFunctions';
-import { Invoice, Pagination, PaginationResult } from 'src/app/types/types';
+import {
+  Recipe,
+  Pagination,
+  Currency,
+  PaginationResult,
+} from 'src/app/types/types';
+import {
+  CURRENCIES,
+  NGB_MODAL_OPTIONS,
+} from 'src/app/variables/GlobalVariables';
 
 @Component({
-  selector: 'app-invoice',
-  templateUrl: './invoice.component.html',
-  styleUrls: ['./invoice.component.scss'],
+  selector: 'app-recipe',
+  templateUrl: './recipe.component.html',
+  styleUrls: ['./recipe.component.scss'],
 })
-export class InvoiceComponent implements OnInit {
+export class RecipeComponent implements OnInit {
   //#region VARIABLES
-  items: Invoice[] = [];
+  items: Recipe[] = [];
   pagination: Pagination = {
     limit: 10,
     page: 1,
@@ -26,11 +31,12 @@ export class InvoiceComponent implements OnInit {
   };
   filter: any;
   currencies: Currency[] = CURRENCIES;
-  invoiceSelected?: Invoice;
+  recipeSelected?: Recipe;
   //#endregion VARIABLES
 
   constructor(
-    private invoiceService: InvoiceService,
+    private recipeService: RecipeService,
+    private router: Router,
     private modalService: NgbModal
   ) {}
 
@@ -44,13 +50,24 @@ export class InvoiceComponent implements OnInit {
   list() {
     this.pagination.filter = buildFilter(this.filter);
 
-    this.invoiceService.getPaginated<Invoice>(
+    this.recipeService.getPaginated<Recipe>(
       this.pagination,
-      (res: PaginationResult<Invoice>) => {
+      (res: PaginationResult<Recipe>) => {
         this.items = res.items;
         this.pagination = res.pagination;
       }
     );
+  }
+
+  edit(_id: string): void {
+    this.router.navigate(['users/edit', _id]);
+  }
+
+  delete(_id: string): void {
+    if (confirm('¿Esta seguro?'))
+      this.recipeService.delete<Recipe>(_id, (res: Recipe) => {
+        this.list();
+      });
   }
 
   changePage(page: number) {
@@ -58,8 +75,8 @@ export class InvoiceComponent implements OnInit {
     this.list();
   }
 
-  detail(invoice: Invoice, modal: any) {
-    this.invoiceSelected = invoice;
+  detail(recipe: Recipe, modal: any) {
+    this.recipeSelected = recipe;
     this.modalService
       .open(modal, NGB_MODAL_OPTIONS)
       .result.then(
@@ -67,7 +84,7 @@ export class InvoiceComponent implements OnInit {
         (rej: any) => {}
       )
       .finally(() => {
-        this.invoiceSelected = undefined;
+        this.recipeSelected = undefined;
       });
   }
 
@@ -91,10 +108,8 @@ export class InvoiceComponent implements OnInit {
 
   private initializeFilter(): void {
     this.filter = {
-      buyDate: { label: 'Fecha Compra' },
-      currency: { label: 'Moneda', isUnique: true },
-      deliveryDate: { label: 'Fecha Entrega' },
-      provider: { label: 'Proveedor' },
+      name: { label: 'Nombre' },
+      status: { label: 'Estado', value: true },
     };
   }
 }

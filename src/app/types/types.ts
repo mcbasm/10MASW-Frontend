@@ -48,8 +48,19 @@ export type ProductPicked = {
   updatedAt?: Date;
 };
 
+export type Recipe = {
+  _id?: string;
+  currency: string;
+  name: string;
+  products: ProductPicked[];
+  status?: boolean;
+  total: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
 export type Role = {
-  _id: string;
+  _id?: string;
   name: string;
   nameES: string;
   createdAt?: Date;
