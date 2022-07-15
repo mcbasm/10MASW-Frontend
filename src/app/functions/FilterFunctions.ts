@@ -4,8 +4,6 @@ export function buildFilter(object: any) {
     if (Object.prototype.hasOwnProperty.call(object, key)) {
       const element = object[key];
 
-      console.log('Element', element);
-
       if (element.isId && element.value) {
         filter[key] = { value: element.value, isId: element.isId };
       } else {

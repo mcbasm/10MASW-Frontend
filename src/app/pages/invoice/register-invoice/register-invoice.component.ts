@@ -1,6 +1,6 @@
 import { CURRENCIES, HOURS_ARRAY } from './../../../variables/GlobalVariables';
 import { Router } from '@angular/router';
-import { Currency, Invoice, ProductInvoice } from 'src/app/types/types';
+import { Currency, Invoice, ProductPicked } from 'src/app/types/types';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsFunctions } from 'src/app/functions/ReactiveFormsFunctions';
@@ -17,7 +17,7 @@ export class RegisterInvoiceComponent
 {
   //#region DATA
   form!: FormGroup;
-  products!: ProductInvoice[];
+  products: ProductPicked[] = [];
   hours: string[] = HOURS_ARRAY;
   currencies: Currency[] = CURRENCIES;
   //#endregion DATA
@@ -81,33 +81,25 @@ export class RegisterInvoiceComponent
       );
   }
 
-  addProduct(product: ProductInvoice): void {
-    this.setTotal(
-      (this.getValue(this.form, 'total') as number) + product.total
-    );
+  addProduct(product: ProductPicked): void {
     this.products.push(product);
+    this.calculateCurrentTotal();
   }
 
-  editProduct(product: ProductInvoice): void {
+  editProduct(product: ProductPicked): void {
     const editedProduct = this.products.find(
       (x) => x.product._id === product.product._id
     );
     if (!editedProduct) return;
     this.products[this.products.indexOf(editedProduct)] = product;
-    this.setTotal(
-      (this.getValue(this.form, 'total') as number) -
-        editedProduct.total +
-        product.total
-    );
+    this.calculateCurrentTotal();
   }
 
   deleteProduct(_id: string): void {
     const deletedProduct = this.products.find((x) => x.product._id === _id);
     if (!deletedProduct) return;
     this.products.splice(this.products.indexOf(deletedProduct), 1);
-    this.setTotal(
-      (this.getValue(this.form, 'total') as number) - deletedProduct.total
-    );
+    this.calculateCurrentTotal();
   }
 
   reset() {
@@ -144,6 +136,10 @@ export class RegisterInvoiceComponent
 
   private setTotal(value: number): void {
     this.setValue(this.form, 'total', value);
+  }
+
+  private calculateCurrentTotal() {
+    this.setTotal(this.products.reduce((p, c) => p + +(c.total || 0), 0));
   }
   //#endregion METHODS
 }

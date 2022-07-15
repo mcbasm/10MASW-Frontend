@@ -1,4 +1,4 @@
-import { MEASUREMENT_UNITS } from './../../variables/GlobalVariables';
+import { MEASUREMENT_UNITS, NGB_MODAL_OPTIONS } from './../../variables/GlobalVariables';
 import { buildFilter } from 'src/app/functions/FilterFunctions';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
@@ -71,7 +71,7 @@ export class ProductComponent implements OnInit {
   }
 
   showFilter(modal: any): void {
-    this.modalService.open(modal, { size: 'lg' }).result.then(
+    this.modalService.open(modal, NGB_MODAL_OPTIONS).result.then(
       (res: any) => {
         if (res === 'filter') {
           this.list();

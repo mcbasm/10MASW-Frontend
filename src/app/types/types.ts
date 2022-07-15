@@ -21,7 +21,7 @@ export type Invoice = {
   buyDate: Date | string;
   currency: Currency;
   deliveryDate: Date | string;
-  products: ProductInvoice[];
+  products: ProductPicked[];
   provider: string;
   total: number;
   createdAt?: Date;
@@ -39,11 +39,11 @@ export type Product = {
   updatedAt?: Date;
 };
 
-export type ProductInvoice = {
+export type ProductPicked = {
   _id?: string;
   product: Product;
   quantity: number;
-  total: number;
+  total?: number;
   createdAt?: Date;
   updatedAt?: Date;
 };

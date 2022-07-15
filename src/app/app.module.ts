@@ -22,6 +22,8 @@ import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { RegisterInvoiceComponent } from './pages/invoice/register-invoice/register-invoice.component';
 import { InstanceofdatePipe } from './pipes/instanceofdate.pipe';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
+import { ProductPickerComponent } from './components/product-picker/product-picker.component';
+import { ProductSearchComponent } from './components/product-search/product-search.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { DatepickerComponent } from './components/datepicker/datepicker.componen
     RegisterInvoiceComponent,
     InstanceofdatePipe,
     DatepickerComponent,
+    ProductPickerComponent,
+    ProductSearchComponent,
   ],
   imports: [
     BrowserModule,

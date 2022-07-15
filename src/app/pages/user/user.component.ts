@@ -1,3 +1,4 @@
+import { NGB_MODAL_OPTIONS } from './../../variables/GlobalVariables';
 import { RoleService } from './../../services/external/role.service';
 import { Router } from '@angular/router';
 import { User, Pagination, PaginationResult, Role } from './../../types/types';
@@ -79,7 +80,7 @@ export class UserComponent implements OnInit {
   }
 
   showFilter(modal: any): void {
-    this.modalService.open(modal, { size: 'lg' }).result.then(
+    this.modalService.open(modal, NGB_MODAL_OPTIONS).result.then(
       (res: any) => {
         if (res === 'filter') {
           this.list();

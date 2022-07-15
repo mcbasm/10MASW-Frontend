@@ -1,0 +1,102 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-6 col-md-8 col-lg-10">
+              <h1>Productos</h1>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-2 text-end">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="showModal(productSearchModal, 'add')"
+              >
+                <i class="fas fa-plus"></i> Añadir
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 table-responsive" *ngIf="items.length > 0">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 6rem">N°</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Unidad de Medida</th>
+                    <th scope="col" *ngIf="requiredTotal">Total</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.measurementUnit }}</td>
+                    <td *ngIf="requiredTotal">{{ item.total }}</td>
+                    <td>
+                      <div class="btn-group">
+                        <button
+                          class="btn btn-warning"
+                          type="button"
+                          (click)="
+                            showModal(productSearchModal, 'edit', item);
+                            $event.preventDefault()
+                          "
+                        >
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button
+                          class="btn btn-danger"
+                          type="button"
+                          (click)="
+                            delete(item.product._id!); $event.preventDefault()
+                          "
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-12" *ngIf="items.length === 0">
+              <h2>No hay registros disponibles.</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Búsqueda de Productos -->
+<ng-template #productSearchModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      <i class="fa-solid fa-filter"></i> Búsqueda de Productos
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <app-product-search
+      [productsPicked]="items"
+      [requiredTotal]="requiredTotal"
+      [edition]="edition"
+      [selectedProduct]="selectedProduct"
+      (addProduct)="add($event)"
+      (editProduct)="edit($event)"
+    ></app-product-search>
+  </div>
+</ng-template>

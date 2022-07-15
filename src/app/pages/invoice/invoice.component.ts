@@ -1,4 +1,4 @@
-import { CURRENCIES } from './../../variables/GlobalVariables';
+import { CURRENCIES, NGB_MODAL_OPTIONS } from './../../variables/GlobalVariables';
 import { Currency } from './../../types/types';
 import { InvoiceService } from './../../services/external/invoice.service';
 import { Component, OnInit } from '@angular/core';
@@ -68,7 +68,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   showFilter(modal: any): void {
-    this.modalService.open(modal, { size: 'lg' }).result.then(
+    this.modalService.open(modal, NGB_MODAL_OPTIONS).result.then(
       (res: any) => {
         if (res === 'filter') {
           setTimeout(() => {

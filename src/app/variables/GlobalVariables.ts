@@ -1,3 +1,4 @@
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Currency, MeasurementUnits } from './../types/types';
 export const CURRENCIES: Currency[] = ['$', 'S/.', '€'];
 export const DATE_DELIMITER: string = '/';
@@ -27,4 +28,9 @@ export const HOURS_ARRAY: string[] = [
   '22',
   '23',
 ];
-export const MEASUREMENT_UNITS: MeasurementUnits[] = ['gr', 'kg', 'lt', 'pkg']
+export const MEASUREMENT_UNITS: MeasurementUnits[] = ['gr', 'kg', 'lt', 'pkg'];
+export const NGB_MODAL_OPTIONS: NgbModalOptions = {
+  size: 'lg',
+  backdrop: 'static',
+  keyboard: false,
+};
