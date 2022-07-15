@@ -1,4 +1,7 @@
-import { CURRENCIES, NGB_MODAL_OPTIONS } from './../../variables/GlobalVariables';
+import {
+  CURRENCIES,
+  NGB_MODAL_OPTIONS,
+} from './../../variables/GlobalVariables';
 import { Currency } from './../../types/types';
 import { InvoiceService } from './../../services/external/invoice.service';
 import { Component, OnInit } from '@angular/core';
@@ -24,6 +27,7 @@ export class InvoiceComponent implements OnInit {
   };
   filter: any;
   currencies: Currency[] = CURRENCIES;
+  invoiceSelected?: Invoice;
   //#endregion VARIABLES
 
   constructor(
@@ -56,14 +60,16 @@ export class InvoiceComponent implements OnInit {
     this.list();
   }
 
-  edit(_id: string) {
-    this.router.navigate(['invoice/edit', _id]);
-  }
-
-  delete(_id: string) {
-    if (confirm('¿Esta seguro?'))
-      this.invoiceService.delete<Invoice>(_id, (res: Invoice) => {
-        this.list();
+  detail(invoice: Invoice, modal: any) {
+    this.invoiceSelected = invoice;
+    this.modalService
+      .open(modal, NGB_MODAL_OPTIONS)
+      .result.then(
+        (res: any) => {},
+        (rej: any) => {}
+      )
+      .finally(() => {
+        this.invoiceSelected = undefined;
       });
   }
 

@@ -61,16 +61,10 @@
                     <td>
                       <div class="btn-group">
                         <button
-                          class="btn btn-warning"
-                          (click)="edit(item._id!)"
+                          class="btn btn-outline-secondary"
+                          (click)="detail(item, detailModal)"
                         >
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button
-                          class="btn btn-danger"
-                          (click)="delete(item._id!)"
-                        >
-                          <i class="fas fa-trash-alt"></i>
+                          <i class="fas fa-eye"></i>
                         </button>
                       </div>
                     </td>
@@ -153,5 +147,23 @@
     >
       <i class="fa-solid fa-filter"></i> Filtrar
     </button>
+  </div>
+</ng-template>
+
+<!-- Modal de Filtrado -->
+<ng-template #detailModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      <i class="fa-solid fa-info-circle"></i> Información de la Compra
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <app-detail-invoice [item]="invoiceSelected"></app-detail-invoice>
   </div>
 </ng-template>

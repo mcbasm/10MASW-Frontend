@@ -1,0 +1,136 @@
+<div class="container-fluid">
+  <!-- Detalles de la Compra -->
+  <div class="row">
+    <div class="col-12">
+      <div class="accordion" id="accordionInvoiceDetail">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingInfo">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseInfo"
+              aria-expanded="true"
+              aria-controls="collapseInfo"
+            >
+              <h4>Detalles de la Compra.</h4>
+            </button>
+          </h2>
+          <div
+            id="collapseInfo"
+            class="accordion-collapse collapse show"
+            aria-labelledby="headingInfo"
+            data-bs-parent="#accordionInvoiceDetail"
+          >
+            <div class="accordion-body">
+              <div class="row">
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                  <label class="col-form-label">Fecha de Compra</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [ngModel]="item?.buyDate | date: 'dd/MM/yyyy HH:mm'"
+                    readonly
+                  />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                  <label class="col-form-label">Fecha de Entrega</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [ngModel]="item?.deliveryDate | date: 'dd/MM/yyyy HH:mm'"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                  <label class="col-form-label">N° de Factura</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [ngModel]="item?.billNumber"
+                    readonly
+                  />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                  <label class="col-form-label">Monto Total</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [ngModel]="totalAmount"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                  <label class="col-form-label">Proveedor</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [ngModel]="item?.provider"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingProducts">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseProducts"
+              aria-expanded="false"
+              aria-controls="collapseProducts"
+            >
+              <h4>Detalles de los Productos</h4>
+            </button>
+          </h2>
+          <div
+            id="collapseProducts"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingProducts"
+            data-bs-parent="#accordionInvoiceDetail"
+          >
+            <div class="accordion-body">
+              <div class="row" *ngIf="item">
+                <div
+                  class="col-12 table-responsive"
+                  *ngIf="(item?.products)!.length > 0"
+                >
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="width: 6rem">N°</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Unidad de Medida</th>
+                        <th scope="col">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of item?.products; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.product.measurementUnit }}</td>
+                        <td>{{ item?.total }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-12" *ngIf="(item?.products)!.length === 0">
+                  <h2>No hay registros disponibles.</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
