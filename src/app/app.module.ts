@@ -30,6 +30,8 @@ import { RegisterRecipeComponent } from './pages/recipe/register-recipe/register
 import { DetailRecipeComponent } from './pages/recipe/detail-recipe/detail-recipe.component';
 import { ClientAttentionComponent } from './pages/client-attention/client-attention.component';
 import { TableDetailComponent } from './pages/client-attention/table-detail/table-detail.component';
+import { RecipeSearchComponent } from './components/recipe-search/recipe-search.component';
+import { RecipePickerComponent } from './components/recipe-picker/recipe-picker.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { TableDetailComponent } from './pages/client-attention/table-detail/tabl
     DetailRecipeComponent,
     ClientAttentionComponent,
     TableDetailComponent,
+    RecipeSearchComponent,
+    RecipePickerComponent,
   ],
   imports: [
     BrowserModule,

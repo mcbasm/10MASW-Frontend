@@ -30,18 +30,18 @@
                   Libre
                 </label>
                 <label ngbButtonLabel class="btn-outline-danger w-100">
-                  <input ngbButton type="radio" class="btn-check" [value]="2" />
+                  <input ngbButton type="radio" class="btn-check" [value]="3" />
                   Ocupado
                 </label>
                 <label ngbButtonLabel class="btn-outline-warning w-100">
-                  <input ngbButton type="radio" class="btn-check" [value]="3" />
+                  <input ngbButton type="radio" class="btn-check" [value]="2" />
                   Reservado
                 </label>
               </div>
             </div>
             <div
               class="col-sm-12 col-md-4 col-lg-3"
-              *ngIf="item.availability === 3"
+              *ngIf="item.availability === 2"
             >
               <label class="col-form-label">Hora de reserva</label>
               <div class="input-group mb-3">
@@ -70,8 +70,113 @@
               </select>
             </div>
           </div>
+          <div class="row mt-5">
+            <div class="col-12">
+              <app-recipe-picker
+                [(items)]="recipes"
+                (addRecipeEvent)="addRecipe($event)"
+                (editRecipeEvent)="editRecipe($event)"
+                (deleteRecipeEvent)="deleteRecipe($event)"
+              ></app-recipe-picker>
+            </div>
+          </div>
+        </div>
+        <!-- Botones de accion -->
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-12 text-end">
+              <div class="btn-group">
+                <button
+                  class="btn btn-danger"
+                  *ngIf="order && ![3, 4].includes(order.status!)"
+                  (click)="changeStatus(5)"
+                  [disabled]="disableButtons"
+                >
+                  <i class="fa-solid fa-times"></i> Cancelar
+                </button>
+                <button
+                  class="btn btn-success"
+                  *ngIf="!order && recipes.length == 0"
+                  (click)="updateTable()"
+                  [disabled]="disableButtons"
+                >
+                  <i class="fa-solid fa-floppy-disk"></i> Actualizar
+                </button>
+                <button
+                  class="btn btn-success"
+                  *ngIf="!order && recipes.length > 0"
+                  (click)="save()"
+                  [disabled]="disableButtons || recipes.length <= 0"
+                >
+                  <i class="fa-solid fa-floppy-disk"></i> Crear
+                </button>
+                <button
+                  class="btn btn-success"
+                  *ngIf="order"
+                  (click)="save()"
+                  [disabled]="disableButtons || recipes.length <= 0"
+                >
+                  <i class="fa-solid fa-floppy-disk"></i> Actualizar
+                </button>
+                <button
+                  class="btn btn-warning"
+                  *ngIf="order && [1, 2].includes(order.status!)"
+                  [disabled]="disableButtons || recipes.length <= 0"
+                  (click)="changeStatus(3)"
+                >
+                  <i class="fa-solid fa-check-to-slot"></i> Atender
+                </button>
+                <button
+                  class="btn btn-primary"
+                  *ngIf="order && order.status === 3"
+                  [disabled]="disableButtons || recipes.length <= 0"
+                  (click)="changeStatus(4, completeModal)"
+                >
+                  <i class="fa-solid fa-money-bill"></i> Completar
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #completeModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Completar Orden</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <p>El monto total a pagar es:</p>
+      </div>
+      <div class="col-12">
+        <h3>{{ recipes[0].recipe.currency }} {{ order?.total }}</h3>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-danger"
+      (click)="modal.close('rechazar')"
+    >
+      <i class="fa-solid fa-circle-xmark"></i> Rechazar
+    </button>
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="modal.close('completar')"
+    >
+      <i class="fa-solid fa-money-bill"></i> Completar
+    </button>
+  </div>
+</ng-template>

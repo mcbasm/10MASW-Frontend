@@ -28,6 +28,17 @@ export type Invoice = {
   updatedAt?: Date;
 };
 
+/**
+ * status: 1 - Pendiente, 2 - En preparación, 3 - Atendida, 4 - Completada, 5 - Cancelada
+ */
+export type Order = {
+  _id?: string;
+  table: Table;
+  recipes: RecipePicked[];
+  status?: number;
+  total?: number;
+};
+
 export type Product = {
   _id?: string;
   measurementUnit: MeasurementUnits;
@@ -57,6 +68,12 @@ export type Recipe = {
   total: number;
   createdAt?: Date;
   updatedAt?: Date;
+};
+
+export type RecipePicked = {
+  _id?: string;
+  recipe: Recipe;
+  quantity: number;
 };
 
 export type Role = {

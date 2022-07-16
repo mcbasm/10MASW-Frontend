@@ -1,0 +1,153 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-12 text-end">
+              <button type="button" class="btn btn-warning" (click)="reload()">
+                <i class="fas fa-redo"></i> Recargar
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Registro de objeto RecipePicked -->
+          <div class="row" *ngIf="selectedRecipe">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Añadir Plato</h4>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                      <label class="col-form-label">Plato</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        disabled
+                        [ngModel]="selectedRecipe.recipe.name"
+                      />
+                    </div>
+                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                      <label class="col-form-label">Cantidad</label>
+                      <input
+                        class="form-control"
+                        type="number"
+                        [(ngModel)]="selectedRecipe.quantity"
+                      />
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="form-group col-12 text-end">
+                      <button
+                        class="btn btn-primary"
+                        (click)="save()"
+                        [disabled]="!(selectedRecipe.quantity > 0)"
+                      >
+                        <i class="fa-solid fa-floppy-disk"></i> Guardar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filtro -->
+          <div class="row" *ngIf="!edition">
+            <div class="col-12">
+              <div class="accordion" id="accordionFilter">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingFilter">
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseFilter"
+                      aria-expanded="true"
+                      aria-controls="collapseFilter"
+                    >
+                      <i class="fa-solid fa-filter"></i> Filtro
+                    </button>
+                  </h2>
+                  <div
+                    id="collapseFilter"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="headingFilter"
+                    data-bs-parent="#accordionFilter"
+                  >
+                    <div class="accordion-body">
+                      <form>
+                        <div class="row">
+                          <div class="form-group col-sm-12 col-md-12 col-lg-6">
+                            <label class="col-form-label">Nombre</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              name="name"
+                              [(ngModel)]="filter.name.value"
+                            />
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div
+                            class="form-group col-sm-12 col-md-12 col-lg-12 text-end"
+                          >
+                            <button
+                              type="button"
+                              class="btn btn-success"
+                              (click)="list()"
+                            >
+                              <i class="fa-solid fa-filter"></i> Filtrar
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Tabla -->
+          <div class="row" *ngIf="!edition">
+            <div class="col-12 text-end">
+              <app-pagination
+                [pagination]="pagination"
+                [(filter)]="filter"
+                (pageSelected)="changePage($event)"
+              ></app-pagination>
+            </div>
+            <div class="col-12 table-responsive" *ngIf="items.length > 0">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 6rem">N°</th>
+                    <th scope="col">Nombre</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    [ngClass]="{
+                      'table-secondary': disabledIndexes.includes(i)
+                    }"
+                    *ngFor="let item of items; let i = index"
+                    (click)="selectRecipe(item, i)"
+                  >
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.name }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-12" *ngIf="items.length === 0">
+              <h2>No hay registros disponibles.</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
