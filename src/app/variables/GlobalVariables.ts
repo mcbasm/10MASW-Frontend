@@ -28,6 +28,7 @@ export const HOURS_ARRAY: string[] = [
   '22',
   '23',
 ];
+export const MINUTES_ARRAY: string[] = ['00', '15', '30', '45'];
 export const MEASUREMENT_UNITS: MeasurementUnits[] = ['gr', 'kg', 'lt', 'pkg'];
 export const NGB_MODAL_OPTIONS: NgbModalOptions = {
   size: 'lg',

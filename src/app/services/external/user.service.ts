@@ -30,4 +30,8 @@ export class UserService extends BaseApiUseService {
     }
     super.edit<T>(obj, _id, call);
   }
+
+  getByRole<User>(role: string, call: (res: User[]) => any) {
+    super.customPost({ role }, call, 'byRole');
+  }
 }

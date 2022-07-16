@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="row h-100" style="min-height: 1000px">
+    <!-- Distribucion de las mesas -->
+    <div class="col-sm-12 col-md-9 col-lg-9">
+      <div class="row">
+        <div class="col-3 p-3" *ngFor="let table of tables; let i = index">
+          <button
+            [ngClass]="{
+              'btn-success': table.availability === 1,
+              'btn-danger': table.availability === 3,
+              'btn-warning': table.availability === 2
+            }"
+            class="btn table-button"
+            (click)="selectTable(table)"
+          >
+            <h1>{{ i + 1 }}</h1>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Datos de las mesas -->
+    <div class="col-sm-12 col-md-3 col-lg-3">
+      <div class="card">
+        <div class="card-header">Información General</div>
+        <div class="card-body">
+          <div class="alert alert-primary" role="alert">
+            <strong>Total de mesas: </strong> {{ generalInfo.total }}
+          </div>
+          <div class="alert alert-success" role="alert">
+            <strong>Mesas disponibles: </strong>
+            {{ generalInfo.availableTables }}
+          </div>
+          <div class="alert alert-danger" role="alert">
+            <strong>Mesas en uso: </strong> {{ generalInfo.inUseTables }}
+          </div>
+          <div class="alert alert-warning" role="alert">
+            <strong>Mesas reservadas: </strong> {{ generalInfo.reservedTables }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+import { ClientAttentionComponent } from './pages/client-attention/client-attention.component';
 import { RegisterRecipeComponent } from './pages/recipe/register-recipe/register-recipe.component';
 import { RecipeComponent } from './pages/recipe/recipe.component';
 //#region IMPORTS
@@ -13,11 +14,27 @@ import { UserComponent } from './pages/user/user.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './services/internal/auth-guard.service';
+import { TableDetailComponent } from './pages/client-attention/table-detail/table-detail.component';
 //#endregion IMPORTS
 
 //#region ROUTING
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {
+    path: 'clientAttention',
+    children: [
+      {
+        path: '',
+        component: ClientAttentionComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'tableDetail/:id',
+        component: TableDetailComponent,
+        canActivate: [AuthGuardService],
+      },
+    ],
+  },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
   {
     path: 'invoice',

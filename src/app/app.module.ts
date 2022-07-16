@@ -28,6 +28,8 @@ import { DetailInvoiceComponent } from './pages/invoice/detail-invoice/detail-in
 import { RecipeComponent } from './pages/recipe/recipe.component';
 import { RegisterRecipeComponent } from './pages/recipe/register-recipe/register-recipe.component';
 import { DetailRecipeComponent } from './pages/recipe/detail-recipe/detail-recipe.component';
+import { ClientAttentionComponent } from './pages/client-attention/client-attention.component';
+import { TableDetailComponent } from './pages/client-attention/table-detail/table-detail.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { DetailRecipeComponent } from './pages/recipe/detail-recipe/detail-recip
     RecipeComponent,
     RegisterRecipeComponent,
     DetailRecipeComponent,
+    ClientAttentionComponent,
+    TableDetailComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,77 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4>Gestión de Mesa</h4>
+        </div>
+        <div class="card-body" *ngIf="item">
+          <div class="row">
+            <div class="col-2">
+              <label class="col-form-label">N° de Mesa</label>
+              <input
+                type="number"
+                class="form-control"
+                [ngModel]="item.number"
+                readonly
+              />
+            </div>
+            <div class="col-sm-10 col-md-6 col-lg-4">
+              <label class="col-form-label">Estado</label>
+              <div
+                class="btn-group w-100"
+                role="group"
+                ngbRadioGroup
+                name="tableAvailability"
+                [(ngModel)]="item.availability"
+              >
+                <label ngbButtonLabel class="btn-outline-success w-100">
+                  <input ngbButton type="radio" class="btn-check" [value]="1" />
+                  Libre
+                </label>
+                <label ngbButtonLabel class="btn-outline-danger w-100">
+                  <input ngbButton type="radio" class="btn-check" [value]="2" />
+                  Ocupado
+                </label>
+                <label ngbButtonLabel class="btn-outline-warning w-100">
+                  <input ngbButton type="radio" class="btn-check" [value]="3" />
+                  Reservado
+                </label>
+              </div>
+            </div>
+            <div
+              class="col-sm-12 col-md-4 col-lg-3"
+              *ngIf="item.availability === 3"
+            >
+              <label class="col-form-label">Hora de reserva</label>
+              <div class="input-group mb-3">
+                <select class="form-select" [(ngModel)]="reserveHour[0]">
+                  <option>Seleccionar Hora</option>
+                  <option *ngFor="let hour of hours" [value]="hour">
+                    {{ hour }}
+                  </option>
+                </select>
+                <span class="input-group-text">:</span>
+                <select class="form-select" [(ngModel)]="reserveHour[1]">
+                  <option>Seleccionar Minuto</option>
+                  <option *ngFor="let minute of minutes" [value]="minute">
+                    {{ minute }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-3">
+              <label class="col-form-label">Mesero</label>
+              <select class="form-select" [(ngModel)]="item.waiter">
+                <option>Seleccionar Mesero</option>
+                <option *ngFor="let waiter of waiters" [value]="waiter._id">
+                  {{ waiter.lastName }}, {{ waiter.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

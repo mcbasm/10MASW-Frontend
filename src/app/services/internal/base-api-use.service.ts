@@ -102,5 +102,26 @@ export class BaseApiUseService {
         complete: () => {},
       });
   }
+
+  protected customPost<T>(
+    body: any,
+    call: (res: T) => any,
+    url?: string,
+    authenticationRequired: boolean = true
+  ) {
+    this.apiService
+      .post<T>(
+        this._baseURL + (url ? '/' + url : ''),
+        body,
+        authenticationRequired
+      )
+      .subscribe({
+        next: (data: T) => call(data),
+        error: (error) => {
+          alert(error.error.message || 'Error durante el proceso.');
+        },
+        complete: () => {},
+      });
+  }
   //#endregion METHODS
 }

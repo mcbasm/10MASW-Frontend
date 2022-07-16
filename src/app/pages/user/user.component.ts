@@ -50,7 +50,7 @@ export class UserComponent implements OnInit {
         this.pagination = res.pagination;
         // Seleccionar los contenidos a mostrar
         const selectedRole = this.roles.find(
-          (x) => x._id === res.pagination.filter.role.value
+          (x) => x._id === res.pagination.filter.role?.value
         );
         this.filter.role.content = selectedRole?.nameES;
       }

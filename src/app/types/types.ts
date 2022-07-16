@@ -67,6 +67,18 @@ export type Role = {
   updatedAt?: Date;
 };
 
+/**
+ * availability: 1 - Libre, 2 - Reservado, 3 - Ocupado
+ */
+export type Table = {
+  _id?: number;
+  availability: number;
+  number: number;
+  reserveHour?: string;
+  status?: boolean;
+  waiter?: User;
+};
+
 export type User = {
   _id?: string;
   email: string;
