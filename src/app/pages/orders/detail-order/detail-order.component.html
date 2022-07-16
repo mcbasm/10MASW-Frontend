@@ -1,0 +1,130 @@
+<div class="container-fluid">
+  <!-- Detalles de la Compra -->
+  <div class="row">
+    <div class="col-12">
+      <div class="accordion" id="accordionOrderDetail">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingInfo">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseInfo"
+              aria-expanded="true"
+              aria-controls="collapseInfo"
+            >
+              <h4>Detalles de la Compra</h4>
+            </button>
+          </h2>
+          <div
+            id="collapseInfo"
+            class="accordion-collapse collapse show"
+            aria-labelledby="headingInfo"
+            data-bs-parent="#accordionOrderDetail"
+          >
+            <div class="accordion-body">
+              <div class="row">
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                  <label class="col-form-label">Fecha de Creación</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [ngModel]="item?.createdAt | date: 'dd/MM/yyyy HH:mm'"
+                    readonly
+                  />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                  <label class="col-form-label">Ultima modificación</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [ngModel]="item?.updatedAt | date: 'dd/MM/yyyy HH:mm'"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                  <label class="col-form-label">N° de mesa</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [ngModel]="item?.table?.number"
+                    readonly
+                  />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                  <label class="col-form-label">Monto Total</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    [ngModel]="totalAmount"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingProducts">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseProducts"
+              aria-expanded="false"
+              aria-controls="collapseProducts"
+            >
+              <h4>Detalles de los Productos</h4>
+            </button>
+          </h2>
+          <div
+            id="collapseProducts"
+            class="accordion-collapse collapse"
+            aria-labelledby="headingProducts"
+            data-bs-parent="#accordionOrderDetail"
+          >
+            <div class="accordion-body">
+              <!-- Informacion de los platos -->
+              <ngb-accordion #acc="ngbAccordion">
+                <ngb-panel
+                  title="Cantidad: {{ recipePicked.quantity }}. Plato: {{
+                    recipePicked.recipe.name
+                  }}."
+                  *ngFor="let recipePicked of item?.recipes"
+                >
+                  <ng-template ngbPanelContent>
+                    <table class="table table-responsive">
+                      <thead>
+                        <tr>
+                          <th scope="col">N°</th>
+                          <th scope="col">Ingrediente</th>
+                          <th scope="col">Cantidad</th>
+                          <th scope="col">Unidad de Medida</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let productPicked of recipePicked.recipe.products;
+                            let i = index
+                          "
+                        >
+                          <th scope="row">{{ i + 1 }}</th>
+                          <td>{{ productPicked.product.name }}</td>
+                          <td>{{ productPicked.quantity }}</td>
+                          <td>{{ productPicked.product.measurementUnit }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </ng-template>
+                </ngb-panel>
+              </ngb-accordion>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

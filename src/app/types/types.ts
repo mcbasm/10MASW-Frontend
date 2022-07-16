@@ -37,6 +37,8 @@ export type Order = {
   recipes: RecipePicked[];
   status?: number;
   total?: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type Product = {

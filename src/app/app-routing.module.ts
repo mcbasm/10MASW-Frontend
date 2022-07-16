@@ -1,3 +1,4 @@
+import { OrdersComponent } from './pages/orders/orders.component';
 import { ClientAttentionComponent } from './pages/client-attention/client-attention.component';
 import { RegisterRecipeComponent } from './pages/recipe/register-recipe/register-recipe.component';
 import { RecipeComponent } from './pages/recipe/recipe.component';
@@ -52,6 +53,11 @@ const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'order',
+    component: OrdersComponent,
+    canActivate: [AuthGuardService],
+  },
   {
     path: 'recipe',
     children: [

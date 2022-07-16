@@ -5,7 +5,7 @@
         <div class="card-header">
           <div class="row">
             <div class="col-sm-6 col-md-8 col-lg-10">
-              <h1>Compras</h1>
+              <h1>Órdenes</h1>
             </div>
             <div class="col-sm-6 col-md-4 col-lg-2 text-end">
               <button
@@ -42,22 +42,50 @@
                 <thead>
                   <tr>
                     <th scope="col" style="width: 6rem">N°</th>
-                    <th scope="col">Fecha Compra</th>
-                    <th scope="col">Monto</th>
-                    <th scope="col">Moneda</th>
-                    <th scope="col">Proveedor</th>
-                    <th scope="col">Fecha Entrega</th>
+                    <th scope="col">Mesa</th>
+                    <th scope="col">N° de Platos</th>
+                    <th scope="col">Fecha Registro</th>
+                    <th scope="col">Ultima Actualización</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let item of items; let i = index">
                     <td>{{ i + 1 }}</td>
-                    <td>{{ item.buyDate | date: "dd/MM/yyyy HH:mm" }}</td>
-                    <td>{{ item.total }}</td>
-                    <td>{{ item.currency }}</td>
-                    <td>{{ item.provider }}</td>
-                    <td>{{ item.deliveryDate | date: "dd/MM/yyyy HH:mm" }}</td>
+                    <td>{{ item.table.number }}</td>
+                    <td>{{ item.recipes.length }}</td>
+                    <td>{{ item.createdAt | date: "dd/MM/yyyy HH:mm" }}</td>
+                    <td>{{ item.updatedAt | date: "dd/MM/yyyy HH:mm" }}</td>
+                    <td>
+                      <ng-container [ngSwitch]="item.status">
+                        <span
+                          class="badge rounded-pill text-bg-warning"
+                          *ngSwitchCase="1"
+                          >Pendiente</span
+                        >
+                        <span
+                          class="badge rounded-pill text-bg-secondary"
+                          *ngSwitchCase="2"
+                          >En preparación</span
+                        >
+                        <span
+                          class="badge rounded-pill text-bg-success"
+                          *ngSwitchCase="3"
+                          >Atendido</span
+                        >
+                        <span
+                          class="badge rounded-pill text-bg-primary"
+                          *ngSwitchCase="4"
+                          >Completada</span
+                        >
+                        <span
+                          class="badge rounded-pill text-bg-danger"
+                          *ngSwitchCase="5"
+                          >Cancelada</span
+                        >
+                      </ng-container>
+                    </td>
                     <td>
                       <div class="btn-group">
                         <button
@@ -98,41 +126,16 @@
   <div class="modal-body">
     <form>
       <div class="row">
-        <div class="form-group col-sm-12 col-md-12 col-lg-6">
-          <label class="col-form-label">Fecha Compra</label>
-          <app-datepicker
-            [(value)]="filter.buyDate.value"
-            [field]="'buyDate'"
-          ></app-datepicker>
-        </div>
-        <div class="form-group col-sm-12 col-md-12 col-lg-6">
-          <label class="col-form-label">Fecha Entrega</label>
-          <app-datepicker
-            [(value)]="filter.deliveryDate.value"
-            [field]="'deliveryDate'"
-          ></app-datepicker>
-        </div>
-      </div>
-      <div class="row">
-        <div class="form-group col-sm-12 col-md-12 col-lg-6">
-          <label class="col-form-label">Proveedor</label>
-          <input
-            type="text"
-            class="form-control"
-            name="provider"
-            [(ngModel)]="filter.provider.value"
-          />
-        </div>
-        <div class="form-group col-sm-12 col-md-12 col-lg-6">
-          <label class="col-form-label">Moneda</label>
+        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+          <label class="col-form-label">Estado</label>
           <select
             class="form-select"
-            [(ngModel)]="filter.currency.value"
-            name="currency"
+            [(ngModel)]="filter.status.value"
+            name="status"
           >
             <option>Seleccionar Unidad</option>
-            <option *ngFor="let currency of currencies" [value]="currency">
-              {{ currency }}
+            <option *ngFor="let status of statusList" [value]="status.value">
+              {{ status.content }}
             </option>
           </select>
         </div>
@@ -154,7 +157,7 @@
 <ng-template #detailModal let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">
-      <i class="fa-solid fa-info-circle"></i> Información de la Compra
+      <i class="fa-solid fa-info-circle"></i> Información de la Orden
     </h4>
     <button
       type="button"
@@ -164,6 +167,28 @@
     ></button>
   </div>
   <div class="modal-body">
-    <app-detail-invoice [item]="invoiceSelected"></app-detail-invoice>
+    <app-detail-order [item]="orderSelected"></app-detail-order>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12 text-end">
+        <div class="btn-group">
+          <button
+            class="btn btn-secondary"
+            (click)="changeStatus(2)"
+            [disabled]="[2, 3, 4, 5].includes($any(orderSelected?.status))"
+          >
+            <i class="fa-solid fa-clock"></i> En preparación
+          </button>
+          <button
+            class="btn btn-success"
+            (click)="changeStatus(3)"
+            [disabled]="[4, 5].includes($any(orderSelected?.status))"
+          >
+            <i class="fa-solid fa-check-to-slot"></i> Atender
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </ng-template>

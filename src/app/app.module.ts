@@ -32,6 +32,8 @@ import { ClientAttentionComponent } from './pages/client-attention/client-attent
 import { TableDetailComponent } from './pages/client-attention/table-detail/table-detail.component';
 import { RecipeSearchComponent } from './components/recipe-search/recipe-search.component';
 import { RecipePickerComponent } from './components/recipe-picker/recipe-picker.component';
+import { OrdersComponent } from './pages/orders/orders.component';
+import { DetailOrderComponent } from './pages/orders/detail-order/detail-order.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,8 @@ import { RecipePickerComponent } from './components/recipe-picker/recipe-picker.
     TableDetailComponent,
     RecipeSearchComponent,
     RecipePickerComponent,
+    OrdersComponent,
+    DetailOrderComponent,
   ],
   imports: [
     BrowserModule,
