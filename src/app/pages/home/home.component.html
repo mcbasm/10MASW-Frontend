@@ -1,1 +1,51 @@
-<p>home works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4 offset-md-4 offset-lg-4 text-center">
+      <img
+        src="../../../assets/img/viu-logo.png"
+        alt=""
+        width="300"
+        height="300"
+        class="d-inline-block align-text-top"
+      />
+    </div>
+  </div>
+  <div class="row h-100 mt-5">
+    <div
+      class="col-sm-6 col-md-4 col-lg-3 mb-5"
+      *ngFor="let option of showOptions"
+    >
+      <button
+        class="btn btn-outline-primary main-option-btn"
+        (click)="navigateTo(option.route)"
+      >
+        <div class="row">
+          <div class="col-12">
+            <h1>
+              <ng-container [ngSwitch]="option.route">
+                <i
+                  class="fa-solid fa-person"
+                  *ngSwitchCase="'clientAttention'"
+                ></i>
+                <i class="fa-solid fa-box" *ngSwitchCase="'invoice'"></i>
+                <i
+                  class="fa-solid fa-arrow-right-arrow-left"
+                  *ngSwitchCase="'movement'"
+                ></i>
+                <i class="fa-solid fa-table-list" *ngSwitchCase="'order'"></i>
+                <i class="fa-solid fa-bowl-food" *ngSwitchCase="'recipe'"></i>
+                <i class="fa-solid fa-box-open" *ngSwitchCase="'product'"></i>
+                <i class="fa-solid fa-users" *ngSwitchCase="'users'"></i>
+              </ng-container>
+            </h1>
+          </div>
+          <div class="col-12">
+            <h3>
+              {{ option.name }}
+            </h3>
+          </div>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

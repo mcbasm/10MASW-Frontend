@@ -123,6 +123,7 @@ export type User = {
 
 //#region Seguridad
 export type TokenResponse = {
+  name: string;
   role: Role;
   token: string;
 };

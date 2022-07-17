@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 export class AuthenticationService {
   private token!: string;
   private role!: string;
+  private name!: string;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -18,10 +19,22 @@ export class AuthenticationService {
   }
 
   saveRole(role: string): void {
+    localStorage.setItem('role', role);
     this.role = role;
   }
 
+  saveName(name: string): void {
+    localStorage.setItem('name', name);
+    this.name = name;
+  }
+
+  getName(): string {
+    if (!this.name) this.name = localStorage.getItem('name') || '';
+    return this.name || '';
+  }
+
   getRole(): string {
+    if (!this.role) this.role = localStorage.getItem('role') || '';
     return this.role || '';
   }
 
@@ -35,6 +48,7 @@ export class AuthenticationService {
   logout(): void {
     this.token = '';
     this.role = '';
+    this.name = '';
     window.localStorage.removeItem('mean-token');
     this.router.navigateByUrl('/login');
   }
@@ -59,6 +73,4 @@ export class AuthenticationService {
       return false;
     }
   }
-
-
 }

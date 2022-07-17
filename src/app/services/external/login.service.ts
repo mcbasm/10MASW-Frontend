@@ -32,6 +32,7 @@ export class LoginService {
           if (data.token) {
             this.auth.saveToken(data.token);
             this.auth.saveRole(data.role.name);
+            this.auth.saveName(data.name);
             this.router.navigate(['/home']);
           }
           return data;

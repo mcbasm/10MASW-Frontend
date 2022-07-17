@@ -18,4 +18,12 @@ export class NavbarComponent implements OnInit {
   logout(): void {
     this.auth.logout();
   }
+
+  getRole(): string {
+    return this.auth.getRole();
+  }
+
+  getName(): string {
+    return this.auth.getName();
+  }
 }
