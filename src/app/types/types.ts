@@ -28,6 +28,15 @@ export type Invoice = {
   updatedAt?: Date;
 };
 
+export type Movement = {
+  _id?: string;
+  product: Product;
+  quantity: number;
+  type: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
 /**
  * status: 1 - Pendiente, 2 - En preparación, 3 - Atendida, 4 - Completada, 5 - Cancelada
  */

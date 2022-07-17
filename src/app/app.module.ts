@@ -34,6 +34,7 @@ import { RecipeSearchComponent } from './components/recipe-search/recipe-search.
 import { RecipePickerComponent } from './components/recipe-picker/recipe-picker.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { DetailOrderComponent } from './pages/orders/detail-order/detail-order.component';
+import { MovementsComponent } from './pages/movements/movements.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { DetailOrderComponent } from './pages/orders/detail-order/detail-order.c
     RecipePickerComponent,
     OrdersComponent,
     DetailOrderComponent,
+    MovementsComponent,
   ],
   imports: [
     BrowserModule,

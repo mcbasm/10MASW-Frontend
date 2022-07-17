@@ -1,0 +1,119 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-6 col-md-8 col-lg-10">
+              <h1>Movimientos</h1>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-2 text-end">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="showFilter(filterModal)"
+              >
+                <i class="fas fa-filter"></i> Filtrar
+              </button>
+              <button type="button" class="btn btn-warning" (click)="reload()">
+                <i class="fas fa-redo"></i> Recargar
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 text-end">
+              <app-pagination
+                [pagination]="pagination"
+                [(filter)]="filter"
+                (pageSelected)="changePage($event)"
+              ></app-pagination>
+            </div>
+            <div class="col-12 table-responsive" *ngIf="items.length > 0">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 6rem">N°</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Fecha de Movimiento</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>
+                      <ng-container [ngSwitch]="item.type">
+                        <span
+                          class="badge rounded-pill text-bg-success"
+                          *ngSwitchCase="'Entrada'"
+                          >Entrada</span
+                        >
+                        <span
+                          class="badge rounded-pill text-bg-warning"
+                          *ngSwitchCase="'Salida'"
+                          >Salida</span
+                        >
+                      </ng-container>
+                    </td>
+                    <td>{{ item.createdAt | date: "dd/MM/yyyy HH:mm" }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-12" *ngIf="items.length === 0">
+              <h2>No hay registros disponibles.</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Filtrado -->
+<ng-template #filterModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      <i class="fa-solid fa-filter"></i> Filtro
+    </h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+          <label class="col-form-label">Estado</label>
+          <select
+            class="form-select"
+            [(ngModel)]="filter.type.value"
+            name="type"
+          >
+            <option>Seleccionar Unidad</option>
+            <option *ngFor="let type of movementTypes" [value]="type">
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="modal.close('filter')"
+    >
+      <i class="fa-solid fa-filter"></i> Filtrar
+    </button>
+  </div>
+</ng-template>

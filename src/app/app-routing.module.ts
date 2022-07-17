@@ -1,3 +1,4 @@
+import { MovementsComponent } from './pages/movements/movements.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { ClientAttentionComponent } from './pages/client-attention/client-attention.component';
 import { RegisterRecipeComponent } from './pages/recipe/register-recipe/register-recipe.component';
@@ -53,6 +54,11 @@ const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'movement',
+    component: MovementsComponent,
+    canActivate: [AuthGuardService],
+  },
   {
     path: 'order',
     component: OrdersComponent,
